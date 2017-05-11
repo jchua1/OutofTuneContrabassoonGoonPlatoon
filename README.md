@@ -1,8 +1,8 @@
 # Stuyvesant Staff Faculty Scheduling App
 
 #### Team  Out of Tune Contrabassoon Goon Platoon
-- Jordan Chan
 - Jason Chua (Project Manager)
+- Jordan Chan
 - Lawrence Liu
 - Fortune Soleil
 
