@@ -2,7 +2,7 @@
 
 #### Team  Out of Tune Contrabassoon Goon Platoon
 - Jordan Chan
-- Jason Chua
+- Jason Chua (Project Manager)
 - Lawrence Liu
 - Fortune Soleil
 
