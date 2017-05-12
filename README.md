@@ -6,4 +6,4 @@
 - Lawrence Liu
 - Fortune Soleil
 
-Our project will assist Stuyvesant administrators in creating faculty schedules. It will help them optimally schedule classes to teach, preferred lunch periods or courses, etc. by taking the preferences of staff members via a form and our app will display the accumulated data, allowing administrators to create optimal schedules.
+A flask driven app that will allow faculty to submit their scheduling preferences online. Administrators will have access to the accumulated responses and will be able to sort them in various ways, allowing easier scheduling and having all teacher preferences readily available in one place. We would also like to make graphs that allows administrators to see at a glance what periods or classes are most requested.
