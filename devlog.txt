@@ -9,3 +9,6 @@ Working on design doc, readme, and formatting devlog
 
 jasonC -- 2017-05-12 01:12
 Updated README and added design doc
+
+lawrenceL -- 2017-05-15 14:05
+Created basic file structure and flask app
