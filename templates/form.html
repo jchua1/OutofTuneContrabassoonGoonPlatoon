@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Form</title>
+    <h1>Form</h1>
+  </head>
+
+  <body>
+    <p>
+      {{ msg }}
+    </p>
+
+    <p>
+      Please select your schedule preferrences below for the upcoming school year.
+    </p>
+
+    <form method="POST" action="/input">
+      <input type="text" placeholder="Course 1" name="course1"><br>
+      <input type="text" placeholder="Course 2" name="course2"><br>
+      <input type="text" placeholder="Course 3" name="course3"><br>
+
+
+      <input type="radio" name="period" value="option1">1-9<br>
+      <input type="radio" name="period" value="option2">2-10<br>
+      
+      <input type="password" placeholder="Password" name="pw"><br><br>
+      
+      <input type="submit" value="form">
+    </form>
+
+  </body>
+
+</html>
