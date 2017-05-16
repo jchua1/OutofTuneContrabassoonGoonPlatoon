@@ -18,3 +18,7 @@ Created basic html format for login page and forms page
 
 lawrenceL -- 2017-05-16 14:00
 Fixed flask templates to match actual names and basic flask login authorization development
+
+jordanC -- 2017-05-16 14:01
+Completed basic html file for teacher preference forms
+
