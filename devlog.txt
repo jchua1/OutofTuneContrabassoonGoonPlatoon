@@ -12,3 +12,6 @@ Updated README and added design doc
 
 lawrenceL -- 2017-05-15 14:05
 Created basic file structure and flask app
+
+jordanC -- 2017-05-15 14:05
+Created basic html format for login page and forms page
