@@ -22,3 +22,6 @@ Fixed flask templates to match actual names and basic flask login authorization 
 jordanC -- 2017-05-16 14:01
 Completed basic html file for teacher preference forms
 
+jasonC -- 2017-05-17 00:51
+Updated design doc to include things to consider when displaying data as suggested by Ms. McRoy
+Updated timeline
