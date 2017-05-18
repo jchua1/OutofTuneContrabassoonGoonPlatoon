@@ -3,7 +3,7 @@
 
   <head>
     <title>Form</title>
-    <h1>Form</h1>
+    <h1>Teacher Schedule Preferences</h1>
   </head>
 
   <body>
@@ -12,32 +12,67 @@
     </p>
 
     <p>
-      Please select your schedule preferrences below for the upcoming school year.
+      Please select your schedule preferences below for the upcoming school year.<br>
     </p>
 
     <form method="POST" action="/input">
       Course Preferences:<br>
-      1st: <input type="text" placeholder="Course 1" name="course1"><br>
-      2nd: <input type="text" placeholder="Course 2" name="course2"><br>
-      3rd: <input type="text" placeholder="Course 3" name="course3"><br><br>
+      <table>
+	<tr>
+	  <td>1st:</td>
+	  <td><input type="text" placeholder="Course 1" name="course1" required></td>
+	</tr>
+	<tr>
+	  <td>2nd:</td>
+	  <td><input type="text" placeholder="Course 2" name="course2"></td>
+	</tr>
+	<tr>
+	  <td>3rd:</td>
+	  <td><input type="text" placeholder="Course 3" name="course3"></td>
+	</tr>
+      </table>
+      <br>
 
-      Time Schedule Preference (select one):<br>
-      <input type="radio" name="period" value="option1">1 - 9 (8:00AM - 2:50PM)<br>
+      Preferred Work Periods (select one):<br>
+      <input type="radio" name="period" value="option1" required>1 - 9 (8:00AM - 2:50PM)<br>
       <input type="radio" name="period" value="option2">2 - 10 (8:45AM - 3:35PM)<br><br>
       
       Room Preferences:<br>
-      1st: <input type="text" placeholder="Room 1" name="room1"><br>
-      2nd: <input type="text" placeholder="Room 2" name="room2"><br>
-      3rd: <input type="text" placeholder="Room 3" name="room3"><br><br>
+      <table>
+	<tr>
+	  <td>1st:</td>
+	  <td><input type="text" placeholder="Room 1" name="room1" required></td>
+	</tr>
+	<tr>
+	  <td>2nd:</td>
+	  <td><input type="text" placeholder="Room 2" name="room2"></td>
+	</tr>
+	<tr>
+	  <td>3rd:</td>
+	  <td><input type="text" placeholder="Room 3" name="room3"></td>
+	</tr>
+      </table>
+      <br>
 
       Lunch Period Preference:<br>
-      1st: <input type="text" placeholder="Period 1" name="pd1"><br>
-      2nd: <input type="text" placeholder="Period 2" name="pd2"><br>
-      3rd: <input type="text" placeholder="Period 3" name="pd3"><br><br>
+      <table>
+	<tr>
+	  <td>1st:</td>
+	  <td><input type="text" placeholder="Period 1" name="pd1" required></td>
+	</tr>
+	<tr>
+	  <td>2nd:</td>
+	  <td><input type="text" placeholder="Period 2" name="pd2"></td>
+	</tr>
+	<tr>
+	  <td>3rd:</td>
+	  <td><input type="text" placeholder="Period 3" name="pd3"></td>
+	</tr>
+      </table>
+      <br>
 
-      Please list your previous qualifications in the textbox below (including past courses and number of years taught):<br>
-      <textarea rows="5" cols="50" name="quals">Enter qualifications here...
-      </textarea>
+      Years taught at Stuyvesant HS:<br>
+      <input type="text" placeholder="Years" name="quals" required>
       <br><br>
 
       
