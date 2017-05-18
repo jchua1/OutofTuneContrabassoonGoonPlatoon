@@ -28,3 +28,6 @@ Updated timeline
 
 jordanC -- 2017-05-17 14:00
 Updated form html for new preferences
+
+fortuneS -- 2017-05-18 13:58
+Added three tables to the database, with preliminary columnal organization.
