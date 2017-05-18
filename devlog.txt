@@ -31,3 +31,6 @@ Updated form html for new preferences
 
 fortuneS -- 2017-05-18 13:58
 Added three tables to the database, with preliminary columnal organization.
+
+lawrenceL -- 2017-05-18 14:02
+Preparing for adding sessions and modifying results based on logins, need a homepage from Jordan

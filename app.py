@@ -1,22 +1,29 @@
-from flask import Flask, render_template #session stuff
+from flask import Flask, render_template, request, redirect #session stuff
 
 app = Flask(__name__)
 
-@app.route("/", methods =['GET', 'POST'])
+@app.route("/")
 def index():
     return render_template("login.html", msg = "Please login to your account.")
+#if "user" in session:
+#    return render_template("home.html")
 
-@app.route("/auth")
+'''@app.route("/login")
+def login():
+    return render_template("login.html", msg = "Please login to your account")'''
+
+@app.route("/auth", methods=['GET', 'POST'])
 def auth():
     username = request.form["user"]
     password = request.form["pw"]
-    if user == "" or password == "":
-        return render_template("login.html", msg="Please enter your username and password.")
-    if ():#username not in database
+    if username == "" or password == "":
+        return render_template("login.html", msg="Please enter both your username and password.")
+    '''if ():#username not in database
         return render_template("login.html", msg = "Username incorrect. Please try again.")
     if ():#username right, password wrong
-        return render_template("login.html", msg = "Password incorrect. Please try again.")
-    return redirect("/form")
+        return render_template("login.html", msg = "Password incorrect. Please try again.")'''
+    #session["user"] = username
+    return redirect("/form") #redirect to a homepage
 
 @app.route("/form")
 def form():
