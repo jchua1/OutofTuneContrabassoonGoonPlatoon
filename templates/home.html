@@ -7,9 +7,10 @@
 
     <body>
         <h1>Welcome!</h1>
-        <br>
         {% if isLoggedIn %}
             <a href="/form">Form</a>
+	    <br>
+	    <a href="/logout">Logout</a>
         {% else %}
             <a href="/login">Log In</a>
         {% endif %}
