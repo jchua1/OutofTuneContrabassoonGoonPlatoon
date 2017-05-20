@@ -37,3 +37,6 @@ Preparing for adding sessions and modifying results based on logins, need a home
 
 fortuneS -- 2017-05-18 21:12
 Added some database methods
+
+jordanC -- 2017-05-20 14:48
+Created basic home html page
