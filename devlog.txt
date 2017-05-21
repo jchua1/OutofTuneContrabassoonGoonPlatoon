@@ -40,3 +40,11 @@ Added some database methods
 
 jordanC -- 2017-05-20 14:48
 Created basic home html page
+
+lawrenceL -- 2017-05-20 19:50
+Fixed basic home page and added logout stuff
+Started oauth stuff but ran into bug, pushing broken code and requesting assistance
+
+lawrenceL -- 2017-05-20 21:10
+Oauth actually works, it was never broken, just takes literally 4 minutes to finish
+Beginning interaction with database, commented out until stuff in database
