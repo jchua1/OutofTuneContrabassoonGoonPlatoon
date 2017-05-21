@@ -11,7 +11,11 @@
         {{ msg }}
 	<br>
         {% if isLoggedIn %}
-            <a href="/form">Form</a>
+            {% if isAdmin %}
+                <a href="/results">Results</a>
+            {% else %}
+                <a href="/form">Form</a>
+            {% endif %}
 	    <br>
 	    <a href="/logout">Logout</a>
         {% else %}

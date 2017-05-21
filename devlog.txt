@@ -48,3 +48,6 @@ Started oauth stuff but ran into bug, pushing broken code and requesting assista
 lawrenceL -- 2017-05-20 21:10
 Oauth actually works, it was never broken, just takes literally 4 minutes to finish
 Beginning interaction with database, commented out until stuff in database
+
+jordanC -- 2017-05-21 14:59
+Created admin html page and new jinja if statement for admins
