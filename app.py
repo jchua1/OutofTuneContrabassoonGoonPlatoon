@@ -22,8 +22,10 @@ def index():
 
 @app.route("/logout")
 def logout():
-    if "user" in session:
+    if "teacher" in session:
         session.pop("user")
+    if "admin" in session:
+        session.pop("admin")
     return render_template("home.html", msg = "You have successfully logged out.")
 
 @app.route("/login", methods = ['GET', 'POST'])
