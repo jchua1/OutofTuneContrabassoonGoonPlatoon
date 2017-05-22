@@ -51,3 +51,7 @@ Beginning interaction with database, commented out until stuff in database
 
 jordanC -- 2017-05-21 14:59
 Created admin html page and new jinja if statement for admins
+
+jasonC -- 2017-05-22 03:53
+Attempted to fix logout bug
+Added stuff for demo
