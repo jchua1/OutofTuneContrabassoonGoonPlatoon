@@ -55,15 +55,15 @@ def sample_info_route():
         http_auth = credentials.authorize(Http())
         response, content = http_auth.request('https://www.googleapis.com/oauth2/v1/userinfo?alt=json')
         c = json.loads(content)
-        '''if isAdmin(c['email']):
+        if isAdmin(c['email']):
             session['admin'] = c['email']
         else:
             if tExists(c['email']):
                 #html page that asks for name and department
+                #addTeach(stuff)
                 session['teacher'] = c['email']
             else:
-                session['teacher'] = c['email']'''
-        #Commented out those bc stuff not in db yet
+                session['teacher'] = c['email']
         return redirect("/")
 
 @app.route("/form")
