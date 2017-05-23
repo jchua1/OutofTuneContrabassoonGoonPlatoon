@@ -20,13 +20,13 @@ def index():
         return render_template("home.html", isLoggedIn = True, isAdmin = False)
     return render_template("home.html")
 
-@app.route("/logout/")
+@app.route("/logout")
 def logout():
     if "teacher" in session:
         session.pop("teacher")
     if "admin" in session:
         session.pop("admin")
-    session.pop('credentials')
+    #session.pop('credentials')
     return render_template("home.html", msg = "You have successfully logged out.")
 
 @app.route("/login")
@@ -43,7 +43,7 @@ def oauth_testing():
         session['credentials'] = credentials.to_json()
         return redirect(url_for('sample_info_route'))
 
-@app.route('/auth/', methods = ['GET', 'POST'])
+@app.route('/auth', methods = ['GET', 'POST'])
 def sample_info_route():
     if 'credentials' not in session:
         return redirect(url_for('oauth_testing'))
