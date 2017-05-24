@@ -56,21 +56,30 @@ def sample_info_route():
         http_auth = credentials.authorize(Http())
         response, content = http_auth.request('https://www.googleapis.com/oauth2/v1/userinfo?alt=json')
         c = json.loads(content)
+        #if c['email'][
         if isAdmin(c['email']):
             session['admin'] = c['email']
         else:
+            #important, check in database if teacher in there
             if tExists(c['email']):
-                #html page that asks for name and department
-                #addTeach(stuff)
                 session['teacher'] = c['email']
             else:
-                session['teacher'] = c['email']
+                return redirect("/")
         return redirect("/")
 
-@app.route("/form/")
+@app.route("/form")
 def form():
-    return render_template("form.html")
+    if 'admin' in session or 'teacher' in session:
+        return render_template("form.html")
+    else:
+        redirect("/")
 
+@app.route("/results")
+def results():
+    if 'admin' in session or 'teacher' in session:
+        return render_template("results.html")
+    else:
+        redirect("/")
 
 if __name__ == '__main__':
     app.debug = True
