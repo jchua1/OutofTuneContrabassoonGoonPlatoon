@@ -6,7 +6,7 @@
   </head>
   
   <body>
-    <h1>Welcome!</h1>
+    <h1>Stuyvesant Faculty Scheduling</h1>
     <br>
     {{ msg }}
     <br>
@@ -16,9 +16,10 @@
        {% else %}
           <a href="/form">Form</a>
        {% endif %}
-       <br>
+       <br><br>
        <a href="/logout">Logout</a>
     {% else %}
+       Please log in with your <b>stuy.edu</b> email address to continue:<br>
        <a href="/login">Log In</a>
     {% endif %}
   </body>
