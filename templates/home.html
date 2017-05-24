@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html>
-
-    <head>
-        <title>Home</title>
-    </head>
-
-    <body>
-        <h1>Welcome!</h1>
-        <br>
-        {{ msg }}
-	<br>
-        {% if isLoggedIn %}
-            {% if isAdmin %}
-                <a href="/results">Results</a>
-            {% else %}
-                <a href="/form">Form</a>
-            {% endif %}
-	    <br>
-	    <a href="/logout">Logout</a>
-        {% else %}
-            <a href="/login">Log In</a>
-        {% endif %}
-    </body>
-
+  
+  <head>
+    <title>Home</title>
+  </head>
+  
+  <body>
+    <h1>Welcome!</h1>
+    <br>
+    {{ msg }}
+    <br>
+    {% if isLoggedIn %}
+       {% if isAdmin %}
+          <a href="/results">Results</a>
+       {% else %}
+          <a href="/form">Form</a>
+       {% endif %}
+       <br>
+       <a href="/logout">Logout</a>
+    {% else %}
+       <a href="/login">Log In</a>
+    {% endif %}
+  </body>
+  
 </html>
