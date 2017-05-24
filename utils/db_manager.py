@@ -27,6 +27,8 @@ def tExists( email ):
     else:
         return False #if false it should ask a teacher for their name + department, then add them to the db
 
+#DONT REALLY NEED
+#we have a CSV with all the teachers (AP included)
 def addTeach( fname, lname, dept, email ):
     db = sqlite3.connect("data/data.db")
     users = db.cursor()
