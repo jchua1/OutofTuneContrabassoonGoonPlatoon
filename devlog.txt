@@ -55,3 +55,6 @@ Created admin html page and new jinja if statement for admins
 jasonC -- 2017-05-22 03:53
 Attempted to fix logout bug
 Added stuff for demo
+
+lawrenceL -- 2017-05-22 21:52
+Fixed logout bug
