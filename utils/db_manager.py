@@ -94,3 +94,15 @@ def addAdmins():
 
 addTeachers()
 addAdmins()
+
+def getCourses(email):
+    db = sqlite3.connect('data/data.db')
+    c = db.cursor()
+    
+    q = "SELECT (course1, course2, course3) FROM responses WHERE email = '%s';" %(email)
+    c.execute(q)
+    courses = c.fetchall()[0]
+    
+    return courses
+
+    
