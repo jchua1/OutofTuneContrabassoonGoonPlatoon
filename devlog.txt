@@ -70,3 +70,6 @@ Wrote function to read teachers' form responses and add them to database
 
 lawrenceL -- 2017-05-25 13:31
 Requires stuy.edu email, next plan is making sure only teachers/aps can access stuff, deny student login
+
+fortuneS -- 2917-05-25 13:52
+Made some more basic database methods & caught up on changes over absence period
