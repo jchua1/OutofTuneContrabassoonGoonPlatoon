@@ -105,4 +105,42 @@ def getCourses(email):
     
     return courses
 
+def getPds(email):
+    db = sqlite3.connect('data/data.db')
+    c = db.cursor()
     
+    q = "SELECT pds FROM responses WHERE email = '%s';" %(email)
+    c.execute(q)
+    courses = c.fetchall()[0][0]
+    
+    return courses
+
+def getRooms(email):
+    db = sqlite3.connect('data/data.db')
+    c = db.cursor()
+    
+    q = "SELECT (room1, room2, room3) FROM responses WHERE email = '%s';" %(email)
+    c.execute(q)
+    courses = c.fetchall()[0]
+    
+    return courses
+
+def getLunch(email):
+    db = sqlite3.connect('data/data.db')
+    c = db.cursor()
+    
+    q = "SELECT (lunch1, lunch2, lunch3) FROM responses WHERE email = '%s';" %(email)
+    c.execute(q)
+    courses = c.fetchall()[0]
+    
+    return courses
+    
+def getYears(email):
+    db = sqlite3.connect('data/data.db')
+    c = db.cursor()
+    
+    q = "SELECT years FROM responses WHERE email = '%s';" %(email)
+    c.execute(q)
+    courses = c.fetchall()[0][0]
+    
+    return courses
