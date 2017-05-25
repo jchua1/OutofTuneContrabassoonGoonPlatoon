@@ -62,5 +62,11 @@ Fixed logout bug
 jasonC -- 2017-05-24 21:12
 Created functions to add teachers/admins to database from csv files
 
+lawrenceL -- 2017-05-24 14:06
+Requires login to view form/stuff
+
 jasonC -- 2017-05-25 03:15
 Wrote function to read teachers' form responses and add them to database
+
+lawrenceL -- 2017-05-25 13:31
+Requires stuy.edu email, next plan is making sure only teachers/aps can access stuff, deny student login

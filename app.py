@@ -58,13 +58,15 @@ def sample_info_route():
         response, content = http_auth.request('https://www.googleapis.com/oauth2/v1/userinfo?alt=json')
         c = json.loads(content)
         #if c['email'][c['email'].find('@')+1:] == 'stuy.edu':
-        if isAdmin(c['email']):
-            session['admin'] = c['email']
-        else:
-            #important, check in database if teacher in there
-            if tExists(c['email']):
-                session['teacher'] = c['email']
-        return redirect('/')
+            if isAdmin(c['email']):
+                session['admin'] = c['email']
+            else:
+                #important, check in database if teacher in there
+                if tExists(c['email']):
+                    session['teacher'] = c['email']
+            return redirect('/')
+        #else:
+            #return redirect('/')
 
 @app.route("/form")
 def form():
