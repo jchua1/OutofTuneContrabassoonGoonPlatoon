@@ -144,3 +144,5 @@ def getYears(email):
     courses = c.fetchall()[0][0]
     
     return courses
+
+print getCourses('jchua@stuy.edu')
