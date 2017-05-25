@@ -22,34 +22,35 @@ def tExists( email ):
     users.execute(q)
     info = users.fetchall()
 
+    print info
+
     if (len(info) > 0):
         return True #teacher already exists in database
     else:
         return False #if false it should ask a teacher for their name + department, then add them to the db
 
-#DONT REALLY NEED
-#we have a CSV with all the teachers (AP included)
-def addTeach( fname, lname, dept, email ):
-    db = sqlite3.connect("data/data.db")
-    users = db.cursor()
-
-    q = '''INSERT INTO teachers( fname, lname, dept, email ) VALUES("%s", "%s", "%s", "%s");''' % ( fname, lname, dept, email )
-    users.execute(q)
-
-    q = "SELECT id FROM teachers WHERE email = \"%s\";" % ( email ) #get the id
-    users.execute(q)
-    iden = users.fetchall()[0][0]
-    
-    q = "INSERT INTO response( id ) VALUES(%s);" % ( iden ) #create an empty response entry for them
-    users.execute(q)
-    db.commit()
-    return True #success
-
 def getID( email ):
     pass #keep email in the session?
 
-def editResponse( iden, c1, c2, c3, wp, r1, r2, r3, l1, l2, l3, yrs ):
-    pass #find matching id and insert values
+def editResponse( iden, responses ):
+    db = sqlite3.connect('data/data.db')
+    c = db.cursor()
+
+    course1 = responses['course1']
+    course2 = responses['course2']
+    course3 = responses['course3']
+    pds = '1-9' if responses['period'] == 'option1' else '2-10'
+    room1 = responses['room1']
+    room2 = responses['room2']
+    room3 = responses['room3']
+    lunch1 = responses['pd1']
+    lunch2 = responses['pd2']
+    lunch3 = responses['pd3']
+    years = responses['years']
+
+    query = 'INSERT INTO responses VALUES("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s");' % (iden, course1, course2, course3, pds, room1, room2, room3, lunch1, lunch2, lunch3, years)
+    c.execute(query)
+    db.commit()
 
 def addTeachers():
     db = sqlite3.connect('data/data.db')
@@ -93,5 +94,3 @@ def addAdmins():
 
 addTeachers()
 addAdmins()
-
-    

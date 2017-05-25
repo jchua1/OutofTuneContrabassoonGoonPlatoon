@@ -61,3 +61,6 @@ Fixed logout bug
 
 jasonC -- 2017-05-24 21:12
 Created functions to add teachers/admins to database from csv files
+
+jasonC -- 2017-05-25 03:15
+Wrote function to read teachers' form responses and add them to database

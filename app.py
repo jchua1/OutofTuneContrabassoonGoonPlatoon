@@ -27,6 +27,7 @@ def logout():
     if "admin" in session:
         session.pop("admin")
     #session.pop('credentials')
+    print session.keys()
     return render_template("home.html", msg = "You have successfully logged out.")
 
 @app.route("/login")
@@ -56,17 +57,14 @@ def sample_info_route():
         http_auth = credentials.authorize(Http())
         response, content = http_auth.request('https://www.googleapis.com/oauth2/v1/userinfo?alt=json')
         c = json.loads(content)
-        if c['email'].find("@")[:len(c['email'])] == 'stuy.edu':
-            if isAdmin(c['email']):
-                session['admin'] = c['email']
-            else:
-                #important, check in database if teacher in there
-                if tExists(c['email']):
-                    session['teacher'] = c['email']
-                else:
-                    return redirect("/")
-            return redirect("/")
-        return render_template("home.html")
+        #if c['email'][c['email'].find('@')+1:] == 'stuy.edu':
+        if isAdmin(c['email']):
+            session['admin'] = c['email']
+        else:
+            #important, check in database if teacher in there
+            if tExists(c['email']):
+                session['teacher'] = c['email']
+        return redirect('/')
 
 @app.route("/form")
 def form():
@@ -81,6 +79,14 @@ def results():
         return render_template("results.html")
     else:
         return redirect("/")
+
+@app.route('/submit', methods = ['POST'])
+def submit():
+    user = session['teacher']
+    responses = request.form
+    print 'form submitted'
+    editResponse(user, responses)
+    return redirect('/')
 
 if __name__ == '__main__':
     app.debug = True
