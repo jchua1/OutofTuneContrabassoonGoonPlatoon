@@ -1,4 +1,4 @@
-import sqlite3, hashlib, random
+import sqlite3, hashlib, random, csv
 
 #this is going to be used in an if(teacher email): [if(matches admin) 2] [else 1] else: 0
 #requires OAuth or smth
@@ -50,3 +50,48 @@ def getID( email ):
 
 def editResponse( iden, c1, c2, c3, wp, r1, r2, r3, l1, l2, l3, yrs ):
     pass #find matching id and insert values
+
+def addTeachers():
+    db = sqlite3.connect('data/data.db')
+    c = db.cursor()
+
+    query = 'DROP TABLE IF EXISTS teachers'
+    c.execute(query)
+
+    query = 'CREATE TABLE teachers (email TEXT, first TEXT, last TEXT);'
+    c.execute(query)
+
+    f = open('data/teachers.csv')
+    reader = csv.DictReader(f)
+    for row in reader:
+        email = row['Email address']
+        first = row['First name']
+        last = row['Last name']
+        query = 'INSERT INTO teachers VALUES("%s", "%s", "%s");' % (email, first, last)
+        c.execute(query)
+    db.commit()
+    f.close()
+
+def addAdmins():
+    db = sqlite3.connect('data/data.db')
+    c = db.cursor()
+
+    query = 'DROP TABLE IF EXISTS admins'
+    c.execute(query)
+
+    query = 'CREATE TABLE admins (email TEXT);'
+    c.execute(query)
+
+    f = open('data/admins.csv')
+    reader = csv.reader(f)
+    for row in reader:
+        email = row[0]
+        query = 'INSERT INTO admins VALUES("%s");' % (email)
+        c.execute(query)
+    db.commit()
+    f.close()
+
+addTeachers()
+addAdmins()
+
+    

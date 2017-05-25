@@ -58,3 +58,6 @@ Added stuff for demo
 
 lawrenceL -- 2017-05-22 21:52
 Fixed logout bug
+
+jasonC -- 2017-05-24 21:12
+Created functions to add teachers/admins to database from csv files
