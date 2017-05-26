@@ -172,8 +172,10 @@ def whoChoseLunchPeriod( period ):
     
     q = "SELECT email FROM responses WHERE lunch1 = '%s';" %(period)
     c.execute(q)
-    email = c.fetchall()
+    emails = c.fetchall()
+    for email in emails:
+        people.append(getName(email[0]))
     
-    return email
+    return people
 
 print whoChoseLunchPeriod(4)
