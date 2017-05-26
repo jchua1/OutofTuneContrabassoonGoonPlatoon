@@ -29,9 +29,6 @@ def tExists( email ):
     else:
         return False #if false it should ask a teacher for their name + department, then add them to the db
 
-def getID( email ):
-    pass #keep email in the session?
-
 def editResponse( iden, responses ):
     db = sqlite3.connect('data/data.db')
     c = db.cursor()
@@ -99,7 +96,7 @@ def getCourses(email):
     db = sqlite3.connect('data/data.db')
     c = db.cursor()
     
-    q = "SELECT (course1, course2, course3) FROM responses WHERE email = '%s';" %(email)
+    q = "SELECT course1,course2,course3 FROM responses WHERE email = '%s';" %(email)
     c.execute(q)
     courses = c.fetchall()[0]
     
@@ -119,7 +116,7 @@ def getRooms(email):
     db = sqlite3.connect('data/data.db')
     c = db.cursor()
     
-    q = "SELECT (room1, room2, room3) FROM responses WHERE email = '%s';" %(email)
+    q = "SELECT room1,room2,room3 FROM responses WHERE email = '%s';" %(email)
     c.execute(q)
     courses = c.fetchall()[0]
     
@@ -129,7 +126,7 @@ def getLunch(email):
     db = sqlite3.connect('data/data.db')
     c = db.cursor()
     
-    q = "SELECT (lunch1, lunch2, lunch3) FROM responses WHERE email = '%s';" %(email)
+    q = "SELECT lunch1,lunch2,lunch3 FROM responses WHERE email = '%s';" %(email)
     c.execute(q)
     courses = c.fetchall()[0]
     
