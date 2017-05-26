@@ -163,6 +163,9 @@ def getName( email ):
     
     return name
 
+#whoChoseWhat( 'lunch', '1', 4 ) returns who put 4th period as their 1st choice for lunch
+#can replace lunch with room or course, and 1-3 are all valid
+#whoChoseWhat( 'pds', '', '1-9' ) if responses aren't ranked, number is an empty string
 def whoChoseWhat( area, number, choice ):
     people = []
     choice = str(choice)
@@ -179,3 +182,4 @@ def whoChoseWhat( area, number, choice ):
     return people
 
 print whoChoseWhat( 'lunch', '1', 4 )
+print whoChoseWhat( 'pds', '', '1-9' )
