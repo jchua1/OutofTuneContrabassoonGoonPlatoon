@@ -63,8 +63,8 @@ def addTeachers():
     reader = csv.DictReader(f)
     for row in reader:
         email = row['Email address']
-        first = row['First name']
-        last = row['Last name']
+        first = row['First name'].capitalize()
+        last = row['Last name'].capitalize()
         query = 'INSERT INTO teachers VALUES("%s", "%s", "%s");' % (email, first, last)
         c.execute(query)
     db.commit()
@@ -141,5 +141,15 @@ def getYears(email):
     courses = c.fetchall()[0][0]
     
     return courses
+
+def getEmail( fname, lname ):
+    db = sqlite3.connect('data/data.db')
+    c = db.cursor()
+    
+    q = "SELECT email FROM teachers WHERE fname = '%s' AND lname = '%s';" %(fname.capitalize(), lname.capitalize())
+    c.execute(q)
+    email = c.fetchall()[0][0]
+    
+    return email
 
 print getCourses('jchua@stuy.edu')
