@@ -178,4 +178,4 @@ def whoChoseWhat( area, number, choice ):
     
     return people
 
-print whoChoseLunchPeriod( 'lunch', '1', 4 )
+print whoChoseWhat( 'lunch', '1', 4 )
