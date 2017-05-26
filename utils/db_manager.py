@@ -163,14 +163,14 @@ def getName( email ):
     
     return name
 
-def whoChoseLunchPeriod( period ):
+def whoChoseWhat( area, number, choice ):
     people = []
-    period = str(period)
+    choice = str(choice)
     
     db = sqlite3.connect('data/data.db')
     c = db.cursor()
     
-    q = "SELECT email FROM responses WHERE lunch1 = '%s';" %(period)
+    q = "SELECT email FROM responses WHERE %s%s = '%s';" %(area, number, choice)
     c.execute(q)
     emails = c.fetchall()
     for email in emails:
@@ -178,4 +178,4 @@ def whoChoseLunchPeriod( period ):
     
     return people
 
-print whoChoseLunchPeriod(4)
+print whoChoseLunchPeriod( 'lunch', '1', 4 )
