@@ -146,10 +146,25 @@ def getEmail( fname, lname ):
     db = sqlite3.connect('data/data.db')
     c = db.cursor()
     
-    q = "SELECT email FROM teachers WHERE fname = '%s' AND lname = '%s';" %(fname.capitalize(), lname.capitalize())
+    q = "SELECT email FROM teachers WHERE first = '%s' AND last = '%s';" %(fname.capitalize(), lname.capitalize())
     c.execute(q)
     email = c.fetchall()[0][0]
     
     return email
 
+def getName( email ):
+    db = sqlite3.connect('data/data.db')
+    c = db.cursor()
+    
+    q = "SELECT first,last FROM teachers WHERE email = '%s';" %(email)
+    c.execute(q)
+    name = c.fetchall()[0]
+    name = name[0] + " " + name[1]
+    
+    return name
+
+def whoChoseLunchPeriod( period ):
+    pass
+
 print getCourses('jchua@stuy.edu')
+print getName('jchua@stuy.edu')
