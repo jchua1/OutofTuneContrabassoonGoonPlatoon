@@ -167,4 +167,4 @@ def whoChoseLunchPeriod( period ):
     pass
 
 print getCourses('jchua@stuy.edu')
-print getName('jchua@stuy.edu')
+print getName('mszhou@stuy.edu')
