@@ -23,38 +23,77 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-    
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+	<ul class="nav navbar-nav">
+	  <li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+	  {% if isLoggedIn %}
+	  {% if isAdmin %}
+	  <li><a href="/results"><span class="glyphicon glyphicon-stats"></span> Results</a></li>
+	  {% else %}
+	  <li><a href="/results"><span class="glyphicon glyphicon-list-alt"></span> Form</a></li>
+	  {% endif %}
+	</ul>
+	<ul class="nav navbar-nav navbar-right">
+	  <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+	  {% endif %}
+	</ul>
+      </div>
+    </nav>
+    <!-- NAVBAR -->
+
+    <!-- HEADER -->
     <div class="container">
       <div class="page-header">
 	<h1>Stuyvesant Faculty Scheduling</h1>
       </div>
     </div>
-    <br>
-    {{ msg }}
-    <br>
+    <!-- HEADER -->
+
+        
     {% if isLoggedIn %}
-       {% if isAdmin %}
-          <a href="/results">Results</a>
-       {% else %}
-          <a href="/form">Form</a>
-       {% endif %}
-       <br><br>
-       <a href="/logout">Logout</a>
+    <div class="container">
+      <p>
+	Welcome {{user}}!
+      </p>
+      <!-- ADMIN MSG -->
+      {% if isAdmin %}
+      <p>
+	To view the results of form submissions, click this button:
+        <a href="/results" class="btn btn-primary" role="button">Results</a>
+      </p>
+      {% else %}
+      <!-- TEACHER MSG -->
+      <p>
+	To submit your scheduling requests for the next term, click this button:
+	<a href="/form" class="btn btn-primary" role="button">Form</a>
+      </p>
+      {% endif %}
+    </div>
+    
     {% else %}
-       <div class="container" style="width: 480px; border: 0px solid lightgray; padding: 40px; border-radius: 3px;">
-	 <p>
-	   Please log in with your <b>stuy.edu</b> email address to continue:
-	 </p>
-	 <p>
-	   <a href="/login">
-	     <img class="img-responsive" src="static/google.png" style="width:50%">
-	   </a>
-	 </p>
-	 <p>
-	   If you do not have a stuy.edu email address, please contact the assistant principal of your department.
-	 </p>
-       </div>
+
+    <!-- LOGIN -->
+    <div class="container" style="width: 480px; border: 0px solid lightgray; padding: 40px; border-radius: 3px;">
+      <p>
+	Please log in with your <b>stuy.edu</b> email address to continue:
+      </p>
+      <p>
+	<a href="/login">
+	  <img class="img-responsive" src="static/google.png" style="width:50%">
+	</a>
+      </p>
+      <p>
+	If you do not have a stuy.edu email address, please contact the assistant principal of your department.
+      </p>
+    </div>
+    <!-- LOGIN -->
+    
     {% endif %}
+    
+    
   </body>
   
 </html>
