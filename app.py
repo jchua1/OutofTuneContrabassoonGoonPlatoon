@@ -27,7 +27,7 @@ def logout():
     if "admin" in session:
         session.pop("admin")
     print session.keys()
-    return render_template("home.html", msg = "You have successfully logged out.")
+    return render_template("home.html", msg = "<p><b>You have successfully logged out.</b></p>")
 
 @app.route("/login")
 def oauth_testing():
@@ -56,6 +56,7 @@ def sample_info_route():
         http_auth = credentials.authorize(Http())
         response, content = http_auth.request('https://www.googleapis.com/oauth2/v1/userinfo?alt=json')
         c = json.loads(content)
+        #############commented out for testing purposes
         #if c['email'][c['email'].find('@')+1:] == 'stuy.edu':
         if isAdmin(c['email']):
             session['admin'] = c['email']
@@ -64,7 +65,7 @@ def sample_info_route():
                 session['teacher'] = c['email']
         return redirect('/')
         #else:
-            #return redirect('/')
+            #return render_template("home.html", msg = "<p>Only <b>stuy.edu</b> emails are accepted.</p>")
 
 @app.route("/form")
 def form():
@@ -75,7 +76,43 @@ def form():
 
 @app.route("/results")
 def results():
+    # REMOVE THE "or 'teacher' in session" BEFORE THE PROJECT IS DONE
     if 'admin' in session or 'teacher' in session:
+        '''
+        i like forgot how 2d arrays work so psuedocode
+        periods[2][]
+        periods[0] = whoChoseWhat('pds','','1-9')
+        periods[1] = whoChoseWhat('pds','','2-10')
+        ^PASS periods TO JORDAN
+
+        courses[3][]
+        courses[0] = whoChoseWhat('course',1,
+        uh idk how to do courses
+
+        lunchs[4][]
+        add all the 4th periods
+        lunchs[0][0] = whoChoseWhat('lunch',1,4)
+        lunchs[0][1] = whoChoseWhat('lunch',2,4)
+        lunchs[0][2] = whoChoseWhat('lunch',3,4)
+
+        add all the 5th periods
+        lunchs[1][0] = whoChoseWhat('lunch',1,5)
+        lunchs[1][1] = whoChoseWhat('lunch',2,5)
+        lunchs[1][2] = whoChoseWhat('lunch',3,5)
+
+        add all the 6th periods
+        lunchs[2][0] = whoChoseWhat('lunch',1,6)
+        lunchs[2][1] = whoChoseWhat('lunch',2,6)
+        lunchs[2][2] = whoChoseWhat('lunch',3,6)
+
+        add all the 7th periods
+        lunchs[3][0] = whoChoseWhat('lunch',1,7)
+        lunchs[3][1] = whoChoseWhat('lunch',2,7)
+        lunchs[3][2] = whoChoseWhat('lunch',3,7)
+        ^PASS lunchs TO JORDAN
+
+        i assume all my passing is through jinja'''
+        
         return render_template("results.html")
     else:
         return redirect("/")
@@ -87,7 +124,7 @@ def submit():
         responses = request.form
         print 'form submitted'
         editResponse(user, responses)
-    return redirect('/')
+    return render_template("home.html", msg = "<p><b>Your scheduling preferences have been recorded. Your AP will be able to view all teacher preferences and assign schedules accordingly. Thank you, you may log out now.</b></p>")
     
 
 if __name__ == '__main__':
