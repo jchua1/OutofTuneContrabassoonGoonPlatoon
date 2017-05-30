@@ -20,16 +20,28 @@
       <table>
 	<tr>
 	  <td>1st:</td>
-	  <td><input type="text" placeholder="Course 1" name="course1" required></td>
-	  <!-- <td><select>{# GO THROUGH COURSES FOR EACH OPTION courses[0] #}</select></td> -->
+	  <td><select name="course1" required>
+	      <option value="" selected></option>
+	      {% for course in courses %}
+	      <option value="{{ course }}">{{ course }}</option>
+	      {% endfor %}
+	  </select></td>
 	</tr>
 	<tr>
 	  <td>2nd:</td>
-	  <td><input type="text" placeholder="Course 2" name="course2"></td>
+	  <td><select name="course2">
+	      <option value="" selected></option>
+	      {% for course in courses %}
+	      <option value="{{ course }}">{{ course }}</option>
+	      {% endfor %}
 	</tr>
 	<tr>
 	  <td>3rd:</td>
-	  <td><input type="text" placeholder="Course 3" name="course3"></td>
+	  <td><select name="course3">
+	      <option value="" selected></option>
+	      {% for course in courses %}
+	      <option value="{{ course }}">{{ course }}</option>
+	      {% endfor %}
 	</tr>
       </table>
       <br>

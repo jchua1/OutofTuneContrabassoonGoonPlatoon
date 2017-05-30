@@ -71,8 +71,6 @@ def sample_info_route():
 def form():
     if 'admin' in session or 'teacher' in session:
         courseStuff = courseList()
-        for x in range(0, len(courseStuff)):
-           courseStuff[x] = "<option value =" + courseStuff[x] + ">" + courseStuff[x] + "</option>"
         return render_template("form.html", courses = courseStuff)
     else:
         return redirect("/")
