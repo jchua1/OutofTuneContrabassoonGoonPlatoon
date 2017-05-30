@@ -77,6 +77,9 @@ Made some more basic database methods & caught up on changes over absence period
 jordanC -- 2017-05-26 01:03
 Basic bootstrapping of home page with comments
 
+fortuneS -- 2017-05-26 14:00
+Added more database access methods for form responses
+
 lawrenceL -- 2017-05-27 21:35
 All form stuff should be done, users fill out the form and are led to the homepage with a message letting them know they are done
 Psuedocode for displaying results started, next step is implementing courses
