@@ -83,3 +83,6 @@ Added more database access methods for form responses
 lawrenceL -- 2017-05-27 21:35
 All form stuff should be done, users fill out the form and are led to the homepage with a message letting them know they are done
 Psuedocode for displaying results started, next step is implementing courses
+
+fortuneS -- 2017-05-30 13:43
+Added addCourses() to db_manager.py
