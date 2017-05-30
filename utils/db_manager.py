@@ -96,7 +96,7 @@ def addCourses():
     query = 'DROP TABLE IF EXISTS courses'
     c.execute(query)
 
-    query = 'CREATE TABLE courses (course TEXT, "course name" TEXT);'
+    query = 'CREATE TABLE courses (code TEXT, title TEXT);'
     c.execute(query)
 
     f = open('data/courses.csv')
@@ -111,6 +111,7 @@ def addCourses():
 
 addTeachers()
 addAdmins()
+addCourses()
 
 def getCourses(email):
     db = sqlite3.connect('data/data.db')
