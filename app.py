@@ -70,10 +70,10 @@ def sample_info_route():
 @app.route("/form")
 def form():
     if 'admin' in session or 'teacher' in session:
-        '''courseStuff = FUNCTION THAT RETURNS ARRAY OF COURSES
-        for x in courseStuff.length:
-           courseStuff[x] = "<option value =" + courseStuff[x] + ">" + courseStuff[x] + "</option>"'''
-        return render_template("form.html")#, courses = courseStuff)
+        courseStuff = courseList()
+        for x in range(0, len(courseStuff)):
+           courseStuff[x] = "<option value =" + courseStuff[x] + ">" + courseStuff[x] + "</option>"
+        return render_template("form.html", courses = courseStuff)
     else:
         return redirect("/")
 

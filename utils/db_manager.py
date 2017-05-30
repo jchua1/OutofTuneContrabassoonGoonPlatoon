@@ -100,10 +100,10 @@ def addCourses():
     c.execute(query)
 
     f = open('data/courses.csv')
-    reader = csv.reader(f)
+    reader = csv.DictReader(f)
     for row in reader:
         course = row['Course']
-        coursename = row['Course Title'].uppercase()
+        coursename = row['Course Title'].upper()
         query = 'INSERT INTO courses VALUES("%s", "%s");' % (course, coursename)
         c.execute(query)
     db.commit()
