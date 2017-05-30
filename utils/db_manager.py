@@ -88,9 +88,30 @@ def addAdmins():
         c.execute(query)
     db.commit()
     f.close()
+    
+def addCourses():
+    db = sqlite3.connect('data/data.db')
+    c = db.cursor()
+
+    query = 'DROP TABLE IF EXISTS courses'
+    c.execute(query)
+
+    query = 'CREATE TABLE courses (code TEXT, title TEXT);'
+    c.execute(query)
+
+    f = open('data/courses.csv')
+    reader = csv.reader(f)
+    for row in reader:
+        course = row['Course']
+        coursename = row['Course Title'].uppercase()
+        query = 'INSERT INTO courses VALUES("%s", "%s");' % (course, coursename)
+        c.execute(query)
+    db.commit()
+    f.close()
 
 addTeachers()
 addAdmins()
+addCourses()
 
 def getCourses(email):
     db = sqlite3.connect('data/data.db')
@@ -163,6 +184,21 @@ def getName( email ):
     
     return name
 
+def courseList():
+    list = []
+    
+    db = sqlite3.connect('data/data.db')
+    c = db.cursor()
+    
+    q = "SELECT * FROM courses;"
+    c.execute(q)
+    mess = c.fetchall()
+    for item in mess:
+        list.append(item[0] + " - " + item[1])
+    return list
+    
+print courseList()
+    
 #whoChoseWhat( 'lunch', 1, 4 ) returns who put 4th period as their 1st choice for lunch
 #can replace lunch with room or course, and 1-3 are all valid
 #whoChoseWhat( 'pds', '', '1-9' ) if responses aren't ranked, number is an empty string
