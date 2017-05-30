@@ -88,6 +88,26 @@ def addAdmins():
         c.execute(query)
     db.commit()
     f.close()
+    
+def addCourses():
+    db = sqlite3.connect('data/data.db')
+    c = db.cursor()
+
+    query = 'DROP TABLE IF EXISTS courses'
+    c.execute(query)
+
+    query = 'CREATE TABLE courses (course TEXT, "course name" TEXT);'
+    c.execute(query)
+
+    f = open('data/courses.csv')
+    reader = csv.reader(f)
+    for row in reader:
+        course = row['Course']
+        coursename = row['Course Title'].uppercase()
+        query = 'INSERT INTO courses VALUES("%s", "%s");' % (course, coursename)
+        c.execute(query)
+    db.commit()
+    f.close()
 
 addTeachers()
 addAdmins()
