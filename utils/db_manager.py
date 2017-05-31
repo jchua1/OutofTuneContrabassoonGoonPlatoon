@@ -192,10 +192,18 @@ def courseList():
     
     q = "SELECT * FROM courses;"
     c.execute(q)
-    mess = c.fetchall()
-    for item in mess:
+    list = c.fetchall()
+    return list
+
+def combineCourses(courseList):
+    list = []
+    for item in courseList:
         list.append(item[0] + " - " + item[1])
     return list
+
+def deptSort(department):
+    key = {'A' : 'Art', 'E' : 'English', 'F' : 'Foreign Language', 'H' : 'History', 'K' : 'CPR', 'M' : 'Math',
+           'P' : 'Phys Ed', 'S' : 'Science', 'T' : 'Tech', 'U' : 'Music', 'Z' : 'Misc'}
     
 #whoChoseWhat( 'lunch', 1, 4 ) returns who put 4th period as their 1st choice for lunch
 #can replace lunch with room or course, and 1-3 are all valid
