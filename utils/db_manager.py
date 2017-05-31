@@ -192,12 +192,8 @@ def courseList():
     
     q = "SELECT * FROM courses;"
     c.execute(q)
-    list = c.fetchall()
-    return list
-
-def combineCourses(courseList):
-    list = []
-    for item in courseList:
+    mess = c.fetchall()
+    for item in mess:
         list.append(item[0] + " - " + item[1])
     return list
 
