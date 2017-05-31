@@ -27,7 +27,7 @@ def logout():
     if "admin" in session:
         session.pop("admin")
     print session.keys()
-    return render_template("home.html", msg = "<p><b>You have successfully logged out.</b></p>")
+    return render_template("home.html", msg = "You have successfully logged out.")
 
 @app.route("/login")
 def oauth_testing():
@@ -125,7 +125,7 @@ def submit():
         responses = request.form
         print 'form submitted'
         editResponse(user, responses)
-    return render_template("home.html", msg = "<p><b>Your scheduling preferences have been recorded. Your AP will be able to view all teacher preferences and assign schedules accordingly. Thank you, you may log out now.</b></p>")
+    return render_template("home.html", msg = "Your scheduling preferences have been recorded. Your AP will be able to view all teacher preferences and assign schedules accordingly. Thank you, you may log out now.")
     
 
 if __name__ == '__main__':
