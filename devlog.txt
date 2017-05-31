@@ -92,3 +92,6 @@ Added courses.csv
 
 lawrenceL -- 2017-05-30 18:25
 Courses in database, form now shows a dropdown list of courses to choose from and requires at least one selection
+
+fortuneS -- 2017-05-31 13:46
+Added sorting by departments method
