@@ -87,5 +87,8 @@ Psuedocode for displaying results started, next step is implementing courses
 fortuneS -- 2017-05-30 13:43
 Added addCourses() to db_manager.py
 
+jasonC -- 2017-05-30 13:45
+Added courses.csv
+
 lawrenceL -- 2017-05-30 18:25
 Courses in database, form now shows a dropdown list of courses to choose from and requires at least one selection
