@@ -55,9 +55,15 @@
         
     {% if isLoggedIn %}
     <div class="container">
+      <!-- IMPLEMENT LATER -->
       <p>
-	Welcome {{user}}!
+	Welcome <b>{{user}}</b>!
       </p>
+
+      <p>
+	<b>{{ msg }}</b>
+      </p>
+
       <!-- ADMIN MSG -->
       {% if isAdmin %}
       <p>

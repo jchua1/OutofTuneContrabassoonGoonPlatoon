@@ -95,3 +95,6 @@ Courses in database, form now shows a dropdown list of courses to choose from an
 
 fortuneS -- 2017-05-31 13:46
 Added sorting by departments method
+
+lawrenceL -- 2017-05-31 14:06
+Lunch radio buttons and showing username

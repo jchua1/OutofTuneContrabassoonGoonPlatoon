@@ -15,9 +15,9 @@ app.secret_key = os.urandom(32)
 @app.route("/")
 def index():
     if "admin" in session:
-        return render_template("home.html", isLoggedIn = True, isAdmin = True)
+        return render_template("home.html", isLoggedIn = True, isAdmin = True, user = getName(session['admin']))
     if "teacher" in session:
-        return render_template("home.html", isLoggedIn = True, isAdmin = False)
+        return render_template("home.html", isLoggedIn = True, isAdmin = False, user = getName(session['teacher']))
     return render_template("home.html")
 
 @app.route("/logout")
@@ -65,7 +65,7 @@ def sample_info_route():
                 session['teacher'] = c['email']
         return redirect('/')
         #else:
-            #return render_template("home.html", msg = "<p>Only <b>stuy.edu</b> emails are accepted.</p>")
+            #return render_template("home.html", msg = "Only stuy.edu emails are accepted.")
 
 @app.route("/form")
 def form():
