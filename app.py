@@ -125,7 +125,7 @@ def submit():
         responses = request.form
         print 'form submitted'
         editResponse(user, responses)
-    return render_template("home.html", msg = "Your scheduling preferences have been recorded. Your AP will be able to view all teacher preferences and assign schedules accordingly. Thank you, you may log out now.")
+    return render_template("home.html", msg = "Your scheduling preferences have been recorded. Your AP will be able to view all teacher preferences and assign schedules accordingly. Thank you, you may log out now.", isLoggedIn = True, isAdmin = False)
     
 
 if __name__ == '__main__':
