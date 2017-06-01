@@ -29,7 +29,7 @@ def tExists( email ):
     else:
         return False #if false it should ask a teacher for their name + department, then add them to the db
 
-def editResponse( iden, responses ):
+def addResponse( iden, responses ):
     db = sqlite3.connect('data/data.db')
     c = db.cursor()
 
