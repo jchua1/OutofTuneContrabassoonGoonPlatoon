@@ -32,6 +32,7 @@
 	  {% if isLoggedIn %}
 	  {% if isAdmin %}
 	  <li><a href="/results"><span class="glyphicon glyphicon-stats"></span> Results</a></li>
+	  <li><a href="/form"><span class="glyphicon glyphicon-list-alt"></span> Form</a></li>
 	  {% else %}
 	  <li><a href="/form"><span class="glyphicon glyphicon-list-alt"></span> Form</a></li>
 	  {% endif %}
@@ -55,7 +56,6 @@
         
     {% if isLoggedIn %}
     <div class="container">
-      <!-- IMPLEMENT LATER -->
       <p>
 	Welcome <b>{{user}}</b>!
       </p>
@@ -69,6 +69,10 @@
       <p>
 	To view the results of form submissions, click this button:
         <a href="/results" class="btn btn-primary" role="button">Results</a>
+      </p>
+      <p>
+	To submit your scheduling requests for the next term, click this button:
+	<a href="/form" class="btn btn-primary" role="button">Form</a>
       </p>
       {% else %}
       <!-- TEACHER MSG -->
