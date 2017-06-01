@@ -29,7 +29,7 @@ def tExists( email ):
     else:
         return False #if false it should ask a teacher for their name + department, then add them to the db
 
-def addResponse( iden, responses ):
+def editResponse( email, responses ):
     db = sqlite3.connect('data/data.db')
     c = db.cursor()
 
@@ -40,23 +40,19 @@ def addResponse( iden, responses ):
     room1 = responses['room1']
     room2 = responses['room2']
     room3 = responses['room3']
-    lunch1 = responses['pd1']
-    lunch2 = responses['pd2']
-    lunch3 = responses['pd3']
+    lunch1 = responses['lunch1']
+    lunch2 = ''
+    lunch3 = ''
+    if 'lunch2' in responses.keys():
+        lunch2 = responses['lunch2']
+    if 'lunch3' in responses.keys():
+        lunch3 = responses['lunch3']
     years = responses['years']
-
-    query = 'INSERT INTO responses VALUES("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s");' % (iden, 
-                                                                                                                       course1,
-                                                                                                                       course2,
-                                                                                                                       course3,
-                                                                                                                       pds,
-                                                                                                                       room1,
-                                                                                                                       room2,
-                                                                                                                       room3,
-                                                                                                                       lunch1,
-                                                                                                                       lunch2,
-                                                                                                                       lunch3,
-                                                                                                                       years)
+    
+    if hasEntry(email):
+        query = 'UPDATE responses SET course1 = "%s", course2 = "%s", course3 = "%s", pds = "%s", room1 = "%s", room2 = "%s", room3 = "%s", lunch1 = "%s", lunch2 = "%s", lunch3 = "%s", years = "%s" WHERE email = "%s";' % (course1, course2, course3, pds, room1, room2, room3, lunch1, lunch2, lunch3, years, email)
+    else:
+        query = 'INSERT INTO responses VALUES("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s");' % (email, course1, course2, course3, pds, room1, room2, room3, lunch1, lunch2, lunch3, years)
     c.execute(query)
     db.commit()
 
@@ -237,3 +233,12 @@ def whoChoseWhat( area, number, choice ):
         people.append(getName(email[0]))
     
     return people
+
+def hasEntry(email):
+    db = sqlite3.connect('data/data.db')
+    c = db.cursor()
+
+    q = 'SELECT * FROM responses WHERE email = "%s";' %(email)
+    c.execute(q)
+
+    return len(c.fetchall()) != 0

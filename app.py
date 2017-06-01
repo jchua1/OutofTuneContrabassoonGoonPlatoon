@@ -123,6 +123,8 @@ def submit():
     if 'teacher' in session:
         user = session['teacher']
         responses = request.form
+        print responses
+        print user
         print 'form submitted'
         editResponse(user, responses)
     return render_template("home.html", msg = "Your scheduling preferences have been recorded. Your AP will be able to view all teacher preferences and assign schedules accordingly. Thank you, you may log out now.", isLoggedIn = True, isAdmin = False)
