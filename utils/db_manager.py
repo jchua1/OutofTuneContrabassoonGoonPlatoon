@@ -45,7 +45,18 @@ def addResponse( iden, responses ):
     lunch3 = responses['pd3']
     years = responses['years']
 
-    query = 'INSERT INTO responses VALUES("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s");' % (iden, course1, course2, course3, pds, room1, room2, room3, lunch1, lunch2, lunch3, years)
+    query = 'INSERT INTO responses VALUES("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s");' % (iden, 
+                                                                                                                       course1,
+                                                                                                                       course2,
+                                                                                                                       course3,
+                                                                                                                       pds,
+                                                                                                                       room1,
+                                                                                                                       room2,
+                                                                                                                       room3,
+                                                                                                                       lunch1,
+                                                                                                                       lunch2,
+                                                                                                                       lunch3,
+                                                                                                                       years)
     c.execute(query)
     db.commit()
 
