@@ -99,5 +99,8 @@ Added sorting by departments method
 lawrenceL -- 2017-05-31 14:06
 Lunch radio buttons and showing username
 
-jordanC -- 2017-05-31 00:49
+jordanC -- 2017-06-01 00:49
 Bootstrapping teacher request form
+
+jasonC -- 2017-06-01 03:52
+Wrote function to check if teacher already has a form response, updates db instead of adding new entry if true
