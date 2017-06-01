@@ -17,7 +17,9 @@ def index():
     if "admin" in session:
         return render_template("home.html", isLoggedIn = True, isAdmin = True, user = getName(session['admin']))
     if "teacher" in session:
-        return render_template("home.html", isLoggedIn = True, isAdmin = False, user = getName(session['teacher']))
+        if hasEntry(session['teacher']):
+            return render_template("home.html", isLoggedIn = True, isAdmin = False, user = getName(session['teacher']), submitted = True)
+        return render_template("home.html", isLoggedIn = True, isAdmin = False, user = getName(session['teacher']), submitted = False)
     return render_template("home.html")
 
 @app.route("/logout")
@@ -127,7 +129,7 @@ def submit():
         print user
         print 'form submitted'
         editResponse(user, responses)
-    return render_template("home.html", msg = "Your scheduling preferences have been recorded. Your AP will be able to view all teacher preferences and assign schedules accordingly. Thank you, you may log out now.", isLoggedIn = True, isAdmin = False)
+    return render_template("home.html", msg = "Your scheduling preferences have been recorded. Your AP will be able to view all teacher preferences and assign schedules accordingly. Thank you, you may log out now.", isLoggedIn = True, isAdmin = False, user = getName(session['teacher']), submitted = True)
     
 
 if __name__ == '__main__':
