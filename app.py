@@ -129,8 +129,13 @@ def submit():
         print user
         print 'form submitted'
         editResponse(user, responses)
-    return render_template("home.html", msg = "Your scheduling preferences have been recorded. Your AP will be able to view all teacher preferences and assign schedules accordingly. Thank you, you may log out now.", isLoggedIn = True, isAdmin = False, user = getName(session['teacher']), submitted = True)
-    
+        return render_template("home.html", msg = "Your scheduling preferences have been recorded. Your AP will be able to view all teacher preferences and assign schedules accordingly. You may log out now.", isLoggedIn = True, isAdmin = False, user = getName(session['teacher']), submitted = True)
+    if 'admin' in session:
+        user = session['admin']
+        responses = request.form
+        editResponse(user, responses)
+        return render_template("home.html", msg = "Your scheduling preferences have been recorded. You may log out or view all teacher requests.", isLoggedIn = True, isAdmin = True, user = getName(session['admin']), submitted = True)
+    return redirect("/")
 
 if __name__ == '__main__':
     app.debug = True
