@@ -105,6 +105,10 @@ Bootstrapping teacher request form
 jasonC -- 2017-06-01 03:52
 Wrote function to check if teacher already has a form response, updates db instead of adding new entry if true
 
-lawrenceL -- 2017-06-01 18:06
+lawrenceL -- 2017-06-01 14:06
 Changed home messages based on form already submitted or not
 Next step is allowing admins to use the form (front end) in addition to teachers
+
+lawrenceL -- 2017-06-01 19:45
+You must be logged in to go to /submit (though thats a problem in itself, bug if you go from home to /submit? test that)
+Admins now have the form buttons availalbe to them and can fill it out/submit seamlessly.
