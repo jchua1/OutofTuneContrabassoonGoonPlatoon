@@ -115,3 +115,4 @@ Admins now have the form buttons availalbe to them and can fill it out/submit se
 
 lawrenceL -- 2017-06-02 13:52
 Tabs on navbar fixed for admins/teachers
+Added radio buttons to form and fixed a little format

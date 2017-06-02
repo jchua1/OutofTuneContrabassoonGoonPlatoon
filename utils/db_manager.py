@@ -205,8 +205,7 @@ def courseList():
     return list
 
 def deptSort(department):
-    key = {'A' : 'Art', 'E' : 'English', 'F' : 'Foreign Language', 'H' : 'History', 'K' : 'CPR', 'M' : 'Math',
-           'P' : 'Phys Ed', 'S' : 'Science', 'T' : 'Tech', 'U' : 'Music', 'Z' : 'Misc'}
+    key = {'A' : 'Art', 'E' : 'English', 'F' : 'Foreign Language', 'H' : 'History', 'K' : 'CPR', 'M' : 'Math', 'P' : 'Phys Ed', 'S' : 'Science', 'T' : 'Tech', 'U' : 'Music', 'Z' : 'Misc'}
     list = []
     for item in courseList():
         if key[item[0]] == department:
