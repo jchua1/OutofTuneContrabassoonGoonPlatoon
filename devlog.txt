@@ -112,3 +112,6 @@ Next step is allowing admins to use the form (front end) in addition to teachers
 lawrenceL -- 2017-06-01 19:45
 You must be logged in to go to /submit (though thats a problem in itself, bug if you go from home to /submit? test that)
 Admins now have the form buttons availalbe to them and can fill it out/submit seamlessly.
+
+lawrenceL -- 2017-06-02 13:52
+Tabs on navbar fixed for admins/teachers

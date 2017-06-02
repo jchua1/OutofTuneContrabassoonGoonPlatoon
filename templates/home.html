@@ -30,11 +30,9 @@
 	<ul class="nav navbar-nav">
 	  <li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
 	  {% if isLoggedIn %}
+	  <li><a href="/form"><span class="glyphicon glyphicon-list-alt"></span> Form</a></li>
 	  {% if isAdmin %}
 	  <li><a href="/results"><span class="glyphicon glyphicon-stats"></span> Results</a></li>
-	  <li><a href="/form"><span class="glyphicon glyphicon-list-alt"></span> Form</a></li>
-	  {% else %}
-	  <li><a href="/form"><span class="glyphicon glyphicon-list-alt"></span> Form</a></li>
 	  {% endif %}
 	</ul>
 	<ul class="nav navbar-nav navbar-right">
@@ -66,26 +64,32 @@
 
       <!-- ADMIN MSG -->
       {% if isAdmin %}
+      {% if submitted %}
       <p>
-	To view the results of form submissions, click this button:
-        <a href="/results" class="btn btn-primary" role="button">Results</a>
+	<b>You have already submitted a response.</b> To edit your existing scheduling requests, click this button:
+	<a href="/form" class="btn btn-primary" role="button">Form</a>
       </p>
+      {% else %}
       <p>
 	To submit your scheduling requests for the next term, click this button:
 	<a href="/form" class="btn btn-primary" role="button">Form</a>
       </p>
+      {% endif %}
+      <p>
+	To view the results of form submissions, click this button:
+	<a href="/results" class="btn btn-primary" role="button">Results</a>
+      </p>
       {% else %}
+
       <!-- TEACHER MSG -->
       {% if submitted %}
       <p>
 	<b>You have already submitted a response.</b> To edit your existing scheduling requests, click this button:
-	
 	<a href="/form" class="btn btn-primary" role="button">Form</a>
       </p>
       {% else %}
       <p>
 	To submit your scheduling requests for the next term, click this button:
-	
 	<a href="/form" class="btn btn-primary" role="button">Form</a>
       </p>
       {% endif %}

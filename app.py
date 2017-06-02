@@ -71,6 +71,9 @@ def sample_info_route():
 
 @app.route("/form")
 def form():
+    if 'admin' in session:
+        courseStuff = courseList()
+        return render_template("form.html", courses = courseStuff, isAdmin = True)
     if 'admin' in session or 'teacher' in session:
         courseStuff = courseList()
         return render_template("form.html", courses = courseStuff)
