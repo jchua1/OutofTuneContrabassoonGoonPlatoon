@@ -129,11 +129,16 @@ def results():
         ^PASS lunchs TO JORDAN
 
         i assume all my passing is through jinja'''
-        
-        return render_template("results.html", early=['a','b','c'], late=['a','b','c'], lunch={'fourth':['a','b','c'],'fifth':['a','b','c'],'sixth':['a','b','c'],'seventh':['a','b','c'])
+
+        return render_template("results.html", early=['a','b','c'], late=['a','b','c'], lunch={'fourth':['a','b','c']})
     else:
         return redirect("/")
 
+#DELETE THIS LATER
+@app.route('/pie')
+def pie():
+    return render_template("index.html")
+        
 @app.route('/submit', methods = ['POST'])
 def submit():
     if 'teacher' in session:
