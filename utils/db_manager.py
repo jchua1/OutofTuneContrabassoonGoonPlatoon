@@ -1,23 +1,23 @@
 import sqlite3, hashlib, random, csv
 '''
 DATABASE FUNCTION DIRECTORY:
-isAdmin(email)
-tExists(email)
-editResponse(email,responses)
-addTeachers()
-addAdmins()
-addCourses()
-getCourses(email)
-getPds(email)
-getRooms(email)
-getLunch(email)
-getYears(email)
-getEmail(fname,lname)
-getName(email)
-courseList()
-deptSort(department)
-whoChoseWhat(area,number,choice)
-hasEntry(email)
+whoChoseWhat(area,number,choice)  - find users who made the specified selection
+isAdmin(email)                    - check if user is an admin
+tExists(email)                    - check if teacher is in database
+getEmail(fname,lname)             - get a teacher's email based on their name
+getName(email)                    - get a teacher's name based on their email
+hasEntry(email)                   - check if user has already responded to the form
+editResponse(email,responses)     - add or modify a user's preferences
+getCourses(email)                 - return the courses a teacher selected
+getPds(email)                     - returns teacher's scheduling preference
+getRooms(email)                   - teacher's room requests
+getLunch(email)                   - teacher's lunch period requests
+getYears(email)                   - teacher's years of experience
+deptSort(department)              - return all courses in a selected department
+courseList()                      - return list of all courses
+addTeachers()                     - adds teachers from csv to db
+addAdmins()                       - adds admins from csv to db
+addCourses()                      - adds courses from csv to db
 '''
 
 
