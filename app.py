@@ -130,7 +130,7 @@ def results():
 
         i assume all my passing is through jinja'''
         
-        return render_template("results.html")
+        return render_template("results.html", early=['a','b','c'], late=['a','b','c'], lunch={'fourth':['a','b','c'],'fifth':['a','b','c'],'sixth':['a','b','c'],'seventh':['a','b','c'])
     else:
         return redirect("/")
 

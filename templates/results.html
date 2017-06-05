@@ -1,18 +1,53 @@
 <!DOCTYPE html>
 <html>
+  
+  <home>
+    <title>Results</title>
+  </home>
+  
+  <body>
+    <h1>Welcome</h1>
 
-    <home>
-        <title>Results</title>
-    </home>
+    <h2>Early Schedule</h2>
+    <ul>
+      {% for teacher in early %}
+      <li>{{teacher}}</li>
+      {% endfor %}
+    </ul>
 
-    <body>
-        <h1>Welcome</h1>
-        <ul>
-            <li>Teacher A</li>
-            <li>Teacher B</li>
-            <li>Teacher C</li>
-        </ul>
+    <h2>Late Schedule</h2>
+    <ul>
+      {% for teacher in late %}
+      <li>{{teacher}}</li>
+      {% endfor %}
+    </ul>
 
+    <h2>Lunch Requests</h2>
+
+    <h3>4th Period:</h3>
+    <ul>
+      {% for teacher in lunch['fourth'] %}
+      <li>{{teacher}}</li>
+    </ul>
+
+    <h3>5th Period:</h3>
+    <ul>
+      {% for teacher in lunch['fifth'] %}
+      <li>{{teacher}}</li>
+    </ul>
+
+    <h3>6th Period:</h3>
+    <ul>
+      {% for teacher in lunch['sixth'] %}
+      <li>{{teacher}}</li>
+    </ul>
+
+    <h3>7th Period:</h3>
+    <ul>
+      {% for teacher in lunch['seventh'] %}
+      <li>{{teacher}}</li>
+    </ul>
+    
     </body>
-
+  
 </html>
