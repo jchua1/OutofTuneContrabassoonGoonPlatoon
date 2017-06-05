@@ -83,7 +83,7 @@ def form():
         return render_template("form.html", courses = courseStuff, isAdmin = True, submitted = False)
     
     if 'teacher' in session:
-        courseStuff = deptSort('Art')
+        courseStuff = courseList()
         if hasEntry(session['teacher']):
             user = session['teacher']
             return render_template("form.html", courses = courseStuff, submitted = True, coursesPicked = getCourses(user), pds = getPds(user), rooms = getRooms(user), lunchs = getLunch(user), years = getYears(user), msg = "You have already filled out the form.  You may edit your responses and resubmit this form.")
@@ -130,7 +130,7 @@ def results():
 
         i assume all my passing is through jinja'''
         
-        return render_template("results.html", early=['a','b','c'], late=['a','b','c'], lunch={'fourth':['a','b','c'],'fifth':['a','b','c'],'sixth':['a','b','c'],'seventh':['a','b','c'])
+        #return render_template("results.html", early=['a','b','c'], late=['a','b','c'], lunch={'fourth':['a','b','c'],'fifth':['a','b','c'],'sixth':['a','b','c'],'seventh':['a','b','c'])
     else:
         return redirect("/")
 

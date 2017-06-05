@@ -62,7 +62,9 @@
       <form method="POST" action="/submit">
 	<b>Course Preferences:</b><br>
 	Departments:&nbsp;
-	<input type="radio" name="dept1" value="Art" onclick='change' checked>Art
+	{% if submitted %}
+	{% if coursesPicked[0][0]=='A' %}
+	<input type="radio" name="dept1" value="Art" checked>Art
 	&nbsp;<input type="radio" name="dept1" value="English">English
 	&nbsp;<input type="radio" name="dept1" value="Foreign Language">Foreign Language
 	&nbsp;<input type="radio" name="dept1" value="History">History
@@ -77,12 +79,318 @@
 	  <tr>
 	    <td>1st:</td>
 	    <td><select id="course1" required>
-		<option value="" selected></option>
+		<option value=""></option>
 		{% for course in courses %}
+		{% if course[0]=='A' %}
+		{% if course == coursesPicked[0] %}
+		<option value="{{ course }}" selected>{{ course }}</option>
+		{% else %}
 		<option value="{{ course }}">{{ course }}</option>
+		{% endif %}
+		{% endif %}
 		{% endfor %}
 	    </select></td>
 	  </tr><br>
+	  {% endif %}
+
+	  {% if coursesPicked[0][0]=='E' %}
+	<input type="radio" name="dept1" value="Art">Art
+	&nbsp;<input type="radio" name="dept1" value="English" checked>English
+	&nbsp;<input type="radio" name="dept1" value="Foreign Language">Foreign Language
+	&nbsp;<input type="radio" name="dept1" value="History">History
+	&nbsp;<input type="radio" name="dept1" value="CPR">CPR
+	&nbsp;<input type="radio" name="dept1" value="Math">Math
+	&nbsp;<input type="radio" name="dept1" value="Phys Ed">Phys Ed
+	&nbsp;<input type="radio" name="dept1" value="Science">Science
+	&nbsp;<input type="radio" name="dept1" value="Tech">Tech
+	&nbsp;<input type="radio" name="dept1" value="Music">Music
+	&nbsp;<input type="radio" name="dept1" value="Misc">Misc
+	<table>
+	  <tr>
+	    <td>1st:</td>
+	    <td><select id="course1" required>
+		<option value=""></option>
+		{% for course in courses %}
+		{% if course[0]=='E' %}
+		{% if course == coursesPicked[0] %}
+		<option value="{{ course }}" selected>{{ course }}</option>
+		{% else %}
+		<option value="{{ course }}">{{ course }}</option>
+		{% endif %}
+		{% endif %}
+		{% endfor %}
+	    </select></td>
+	  </tr><br>
+	  {% endif %}
+
+	  {% if coursesPicked[0][0]=='F' %}
+	  <input type="radio" name="dept1" value="Art">Art
+	&nbsp;<input type="radio" name="dept1" value="English">English
+	&nbsp;<input type="radio" name="dept1" value="Foreign Language" checked>Foreign Language
+	&nbsp;<input type="radio" name="dept1" value="History">History
+	&nbsp;<input type="radio" name="dept1" value="CPR">CPR
+	&nbsp;<input type="radio" name="dept1" value="Math">Math
+	&nbsp;<input type="radio" name="dept1" value="Phys Ed">Phys Ed
+	&nbsp;<input type="radio" name="dept1" value="Science">Science
+	&nbsp;<input type="radio" name="dept1" value="Tech">Tech
+	&nbsp;<input type="radio" name="dept1" value="Music">Music
+	&nbsp;<input type="radio" name="dept1" value="Misc">Misc
+	<table>
+	  <tr>
+	    <td>1st:</td>
+	    <td><select id="course1" required>
+		<option value=""></option>
+		{% for course in courses %}
+		{% if course[0]=='F' %}
+		{% if course == coursesPicked[0] %}
+		<option value="{{ course }}" selected>{{ course }}</option>
+		{% else %}
+		<option value="{{ course }}">{{ course }}</option>
+		{% endif %}
+		{% endif %}
+		{% endfor %}
+	    </select></td>
+	  </tr><br>
+	  {% endif %}
+
+	  {% if coursesPicked[0][0]=='H' %}
+	<input type="radio" name="dept1" value="Art">Art
+	&nbsp;<input type="radio" name="dept1" value="English">English
+	&nbsp;<input type="radio" name="dept1" value="Foreign Language">Foreign Language
+	&nbsp;<input type="radio" name="dept1" value="History" checked>History
+	&nbsp;<input type="radio" name="dept1" value="CPR">CPR
+	&nbsp;<input type="radio" name="dept1" value="Math">Math
+	&nbsp;<input type="radio" name="dept1" value="Phys Ed">Phys Ed
+	&nbsp;<input type="radio" name="dept1" value="Science">Science
+	&nbsp;<input type="radio" name="dept1" value="Tech">Tech
+	&nbsp;<input type="radio" name="dept1" value="Music">Music
+	&nbsp;<input type="radio" name="dept1" value="Misc">Misc
+	<table>
+	  <tr>
+	    <td>1st:</td>
+	    <td><select id="course1" required>
+		<option value=""></option>
+		{% for course in courses %}
+		{% if course[0]=='H' %}
+		{% if course == coursesPicked[0] %}
+		<option value="{{ course }}" selected>{{ course }}</option>
+		{% else %}
+		<option value="{{ course }}">{{ course }}</option>
+		{% endif %}
+		{% endif %}
+		{% endfor %}
+	    </select></td>
+	  </tr><br>
+	  {% endif %}
+
+	  {% if coursesPicked[0][0]=='K' %}
+	<input type="radio" name="dept1" value="Art">Art
+	&nbsp;<input type="radio" name="dept1" value="English">English
+	&nbsp;<input type="radio" name="dept1" value="Foreign Language">Foreign Language
+	&nbsp;<input type="radio" name="dept1" value="History">History
+	&nbsp;<input type="radio" name="dept1" value="CPR" checked>CPR
+	&nbsp;<input type="radio" name="dept1" value="Math">Math
+	&nbsp;<input type="radio" name="dept1" value="Phys Ed">Phys Ed
+	&nbsp;<input type="radio" name="dept1" value="Science">Science
+	&nbsp;<input type="radio" name="dept1" value="Tech">Tech
+	&nbsp;<input type="radio" name="dept1" value="Music">Music
+	&nbsp;<input type="radio" name="dept1" value="Misc">Misc
+	<table>
+	  <tr>
+	    <td>1st:</td>
+	    <td><select id="course1" required>
+		<option value=""></option>
+		{% for course in courses %}
+		{% if course[0]=='K' %}
+		{% if course == coursesPicked[0] %}
+		<option value="{{ course }}" selected>{{ course }}</option>
+		{% else %}
+		<option value="{{ course }}">{{ course }}</option>
+		{% endif %}
+		{% endif %}
+		{% endfor %}
+	    </select></td>
+	  </tr><br>
+	  {% endif %}
+
+	  {% if coursesPicked[0][0]=='M' %}
+	<input type="radio" name="dept1" value="Art">Art
+	&nbsp;<input type="radio" name="dept1" value="English">English
+	&nbsp;<input type="radio" name="dept1" value="Foreign Language">Foreign Language
+	&nbsp;<input type="radio" name="dept1" value="History">History
+	&nbsp;<input type="radio" name="dept1" value="CPR">CPR
+	&nbsp;<input type="radio" name="dept1" value="Math" checked>Math
+	&nbsp;<input type="radio" name="dept1" value="Phys Ed">Phys Ed
+	&nbsp;<input type="radio" name="dept1" value="Science">Science
+	&nbsp;<input type="radio" name="dept1" value="Tech">Tech
+	&nbsp;<input type="radio" name="dept1" value="Music">Music
+	&nbsp;<input type="radio" name="dept1" value="Misc">Misc
+	<table>
+	  <tr>
+	    <td>1st:</td>
+	    <td><select id="course1" required>
+		<option value=""></option>
+		{% for course in courses %}
+		{% if course[0]=='M' %}
+		{% if course == coursesPicked[0] %}
+		<option value="{{ course }}" selected>{{ course }}</option>
+		{% else %}
+		<option value="{{ course }}">{{ course }}</option>
+		{% endif %}
+		{% endif %}
+		{% endfor %}
+	    </select></td>
+	  </tr><br>
+	  {% endif %}
+
+	  {% if coursesPicked[0][0]=='P' %}
+	<input type="radio" name="dept1" value="Art">Art
+	&nbsp;<input type="radio" name="dept1" value="English">English
+	&nbsp;<input type="radio" name="dept1" value="Foreign Language">Foreign Language
+	&nbsp;<input type="radio" name="dept1" value="History">History
+	&nbsp;<input type="radio" name="dept1" value="CPR">CPR
+	&nbsp;<input type="radio" name="dept1" value="Math">Math
+	&nbsp;<input type="radio" name="dept1" value="Phys Ed" checked>Phys Ed
+	&nbsp;<input type="radio" name="dept1" value="Science">Science
+	&nbsp;<input type="radio" name="dept1" value="Tech">Tech
+	&nbsp;<input type="radio" name="dept1" value="Music">Music
+	&nbsp;<input type="radio" name="dept1" value="Misc">Misc
+	<table>
+	  <tr>
+	    <td>1st:</td>
+	    <td><select id="course1" required>
+		<option value=""></option>
+		{% for course in courses %}
+		{% if course[0]=='P' %}
+		{% if course == coursesPicked[0] %}
+		<option value="{{ course }}" selected>{{ course }}</option>
+		{% else %}
+		<option value="{{ course }}">{{ course }}</option>
+		{% endif %}
+		{% endif %}
+		{% endfor %}
+	    </select></td>
+	  </tr><br>
+	  {% endif %}
+	  
+	  {% if coursesPicked[0][0]=='S' %}
+	<input type="radio" name="dept1" value="Art">Art
+	&nbsp;<input type="radio" name="dept1" value="English">English
+	&nbsp;<input type="radio" name="dept1" value="Foreign Language">Foreign Language
+	&nbsp;<input type="radio" name="dept1" value="History">History
+	&nbsp;<input type="radio" name="dept1" value="CPR">CPR
+	&nbsp;<input type="radio" name="dept1" value="Math">Math
+	&nbsp;<input type="radio" name="dept1" value="Phys Ed">Phys Ed
+	&nbsp;<input type="radio" name="dept1" value="Science" checked>Science
+	&nbsp;<input type="radio" name="dept1" value="Tech">Tech
+	&nbsp;<input type="radio" name="dept1" value="Music">Music
+	&nbsp;<input type="radio" name="dept1" value="Misc">Misc
+	<table>
+	  <tr>
+	    <td>1st:</td>
+	    <td><select id="course1" required>
+		<option value=""></option>
+		{% for course in courses %}
+		{% if course[0]=='S' %}
+		{% if course == coursesPicked[0] %}
+		<option value="{{ course }}" selected>{{ course }}</option>
+		{% else %}
+		<option value="{{ course }}">{{ course }}</option>
+		{% endif %}
+		{% endif %}
+		{% endfor %}
+	    </select></td>
+	  </tr><br>
+	  {% endif %}
+
+	  {% if coursesPicked[0][0]=='T' %}
+	<input type="radio" name="dept1" value="Art">Art
+	&nbsp;<input type="radio" name="dept1" value="English">English
+	&nbsp;<input type="radio" name="dept1" value="Foreign Language">Foreign Language
+	&nbsp;<input type="radio" name="dept1" value="History">History
+	&nbsp;<input type="radio" name="dept1" value="CPR">CPR
+	&nbsp;<input type="radio" name="dept1" value="Math">Math
+	&nbsp;<input type="radio" name="dept1" value="Phys Ed">Phys Ed
+	&nbsp;<input type="radio" name="dept1" value="Science">Science
+	&nbsp;<input type="radio" name="dept1" value="Tech" checked>Tech
+	&nbsp;<input type="radio" name="dept1" value="Music">Music
+	&nbsp;<input type="radio" name="dept1" value="Misc">Misc
+	<table>
+	  <tr>
+	    <td>1st:</td>
+	    <td><select id="course1" required>
+		<option value=""></option>
+		{% for course in courses %}
+		{% if course[0]=='T' %}
+		{% if course == coursesPicked[0] %}
+		<option value="{{ course }}" selected>{{ course }}</option>
+		{% else %}
+		<option value="{{ course }}">{{ course }}</option>
+		{% endif %}
+		{% endif %}
+		{% endfor %}
+	    </select></td>
+	  </tr><br>
+	  {% endif %}
+
+	  {% if coursesPicked[0][0]=='U' %}
+	<input type="radio" name="dept1" value="Art">Art
+	&nbsp;<input type="radio" name="dept1" value="English">English
+	&nbsp;<input type="radio" name="dept1" value="Foreign Language">Foreign Language
+	&nbsp;<input type="radio" name="dept1" value="History">History
+	&nbsp;<input type="radio" name="dept1" value="CPR">CPR
+	&nbsp;<input type="radio" name="dept1" value="Math">Math
+	&nbsp;<input type="radio" name="dept1" value="Phys Ed">Phys Ed
+	&nbsp;<input type="radio" name="dept1" value="Science">Science
+	&nbsp;<input type="radio" name="dept1" value="Tech">Tech
+	&nbsp;<input type="radio" name="dept1" value="Music" checked>Music
+	&nbsp;<input type="radio" name="dept1" value="Misc">Misc
+	<table>
+	  <tr>
+	    <td>1st:</td>
+	    <td><select id="course1" required>
+		<option value=""></option>
+		{% for course in courses %}
+		{% if course[0]=='U' %}
+		{% if course == coursesPicked[0] %}
+		<option value="{{ course }}" selected>{{ course }}</option>
+		{% else %}
+		<option value="{{ course }}">{{ course }}</option>
+		{% endif %}
+		{% endif %}
+		{% endfor %}
+	    </select></td>
+	  </tr><br>
+	  {% endif %}
+
+	  {% else %}
+	  <input type="radio" name="dept1" value="Art">Art
+	  &nbsp;<input type="radio" name="dept1" value="English">English
+	&nbsp;<input type="radio" name="dept1" value="Foreign Language">Foreign Language
+	&nbsp;<input type="radio" name="dept1" value="History">History
+	&nbsp;<input type="radio" name="dept1" value="CPR">CPR
+	&nbsp;<input type="radio" name="dept1" value="Math">Math
+	&nbsp;<input type="radio" name="dept1" value="Phys Ed">Phys Ed
+	&nbsp;<input type="radio" name="dept1" value="Science">Science
+	&nbsp;<input type="radio" name="dept1" value="Tech">Tech
+	&nbsp;<input type="radio" name="dept1" value="Music">Music
+	&nbsp;<input type="radio" name="dept1" value="Misc" checked>Misc
+	<table>
+	  <tr>
+	    <td>1st:</td>
+	    <td><select id="course1" required>
+		<option value=""></option>
+		{% for course in courses %}
+		<!-- DO THIS-->
+		{% if course[0]=='Z' %}
+		<option value="{{ course }}">{{ course }}</option>
+		{% endif %}
+		{% endfor %}
+	    </select></td>
+	  </tr><br>
+	  {% endif %}
+
+<!--2ND COURSE SELECTED ################-->
 	  Departments:&nbsp;
 	  <input type="radio" name="dept2" value="Art" checked>Art
 	  &nbsp;<input type="radio" name="dept2" value="English">English
@@ -147,7 +455,11 @@
 	  <tr>
 	    {% if submitted %}
 	    <td>1st:</td>
-	    <td><input type="text" value={{ rooms[0] }} name="room1" required></td>
+	    {% if rooms[0] == '' %}
+	    <td><input type="text" placeholder="Room 1" name="room1"></td>
+	    {% else %}
+	    <td><input type="text" value={{ rooms[0] }} name="room1"></td>
+	    {% endif %}
 	  </tr>
 	  <tr>
 	    <td>2nd:&nbsp;</td>
@@ -166,7 +478,7 @@
 	    {% endif %}
 	    {% else %}
 	    <td>1st:</td>
-	    <td><input type="text" placeholder="Room 1" name="room1" required></td>
+	    <td><input type="text" placeholder="Room 1" name="room1"></td>
 	  </tr>
 	  <tr>
 	    <td>2nd:&nbsp;</td>
