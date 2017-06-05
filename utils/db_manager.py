@@ -10,10 +10,11 @@ def isAdmin( email ):
     users.execute(q)
     info = users.fetchall()
 
-    if (len(info) > 0): #check if an admin has a matching email
+    if (len(info) > 0): #check if any admin has a matching email
         return True
     return False
         
+#this method takes a teacher's email and returns true if they have an entry in teachers table
 def tExists( email ):
     db = sqlite3.connect("data/data.db")
     users = db.cursor()
@@ -27,6 +28,8 @@ def tExists( email ):
     else:
         return False #if false it should ask a teacher for their name + department, then add them to the db
 
+#this method alters all of the teacher (corresponding to their email)'s form responses
+#uses hasEntry to see if it needs to be inserted or updated
 def editResponse( email, responses ):
     db = sqlite3.connect('data/data.db')
     c = db.cursor()
@@ -39,7 +42,7 @@ def editResponse( email, responses ):
     room2 = responses['room2']
     room3 = responses['room3']
     lunch1 = responses['lunch1']
-    lunch2 = ''
+    lunch2 = ''#if not selected by radio button, not in responses
     lunch3 = ''
     if 'lunch2' in responses.keys():
         lunch2 = responses['lunch2']
@@ -54,11 +57,13 @@ def editResponse( email, responses ):
     c.execute(query)
     db.commit()
 
+#adds the teachers from the csv file to the database
+#executed every runtime to keep updated
 def addTeachers():
     db = sqlite3.connect('data/data.db')
     c = db.cursor()
 
-    query = 'DROP TABLE IF EXISTS teachers'
+    query = 'DROP TABLE IF EXISTS teachers'#refreshing the table
     c.execute(query)
 
     query = 'CREATE TABLE teachers (email TEXT, first TEXT, last TEXT);'
@@ -68,13 +73,15 @@ def addTeachers():
     reader = csv.DictReader(f)
     for row in reader:
         email = row['Email address']
-        first = row['First name'].capitalize()
+        first = row['First name'].capitalize()#because names are exactly as input
         last = row['Last name'].capitalize()
         query = 'INSERT INTO teachers VALUES("%s", "%s", "%s");' % (email, first, last)
         c.execute(query)
-    db.commit()
+    db.commit()#gotta save everything, ya feel?
     f.close()
 
+#adds the admins from a separate csv from the teachers to the database
+#basically the same as teachers except only emails are necessary for checking
 def addAdmins():
     db = sqlite3.connect('data/data.db')
     c = db.cursor()
@@ -94,6 +101,7 @@ def addAdmins():
     db.commit()
     f.close()
     
+#adds the list of courses from a csv to the database
 def addCourses():
     db = sqlite3.connect('data/data.db')
     c = db.cursor()
@@ -108,16 +116,18 @@ def addCourses():
     reader = csv.DictReader(f)
     for row in reader:
         course = row['Course']
-        coursename = row['Course Title'].upper()
+        coursename = row['Course Title'].upper()#just in case
         query = 'INSERT INTO courses VALUES("%s", "%s");' % (course, coursename)
         c.execute(query)
     db.commit()
     f.close()
 
+#gotta run these
 addTeachers()
 addAdmins()
 addCourses()
 
+#returns the courses a teacher requested
 def getCourses(email):
     db = sqlite3.connect('data/data.db')
     c = db.cursor()
@@ -128,6 +138,7 @@ def getCourses(email):
     
     return courses
 
+#returns the teacher's preferred teaching day
 def getPds(email):
     db = sqlite3.connect('data/data.db')
     c = db.cursor()
@@ -138,6 +149,7 @@ def getPds(email):
     
     return pds
 
+#returns all the rooms a teacher requested
 def getRooms(email):
     db = sqlite3.connect('data/data.db')
     c = db.cursor()
@@ -148,6 +160,7 @@ def getRooms(email):
     
     return rooms
 
+#returns a teacher's preferred lunch periods
 def getLunch(email):
     db = sqlite3.connect('data/data.db')
     c = db.cursor()
@@ -158,6 +171,7 @@ def getLunch(email):
     
     return lunches
     
+#returns how many years a teacher has been working
 def getYears(email):
     db = sqlite3.connect('data/data.db')
     c = db.cursor()
@@ -168,6 +182,7 @@ def getYears(email):
     
     return years
 
+#returns the teacher's email by name
 def getEmail( fname, lname ):
     db = sqlite3.connect('data/data.db')
     c = db.cursor()
@@ -178,6 +193,7 @@ def getEmail( fname, lname ):
     
     return email
 
+#returns the teacher's name by email
 def getName( email ):
     db = sqlite3.connect('data/data.db')
     c = db.cursor()
@@ -189,6 +205,7 @@ def getName( email ):
     
     return name
 
+#returns a list of all course codes + courses as strings
 def courseList():
     list = []
     
@@ -202,6 +219,8 @@ def courseList():
         list.append(item[0] + " - " + item[1])
     return list
 
+#returns a list of courses in the specified department
+#department must be written exactly like dict values
 def deptSort(department):
     key = {'A' : 'Art', 'E' : 'English', 'F' : 'Foreign Language', 'H' : 'History', 'K' : 'CPR', 'M' : 'Math', 'P' : 'Phys Ed', 'S' : 'Science', 'T' : 'Tech', 'U' : 'Music', 'Z' : 'Misc'}
     list = []
@@ -229,6 +248,7 @@ def whoChoseWhat( area, number, choice ):
     
     return people
 
+#checks if a teacher has already responded
 def hasEntry(email):
     db = sqlite3.connect('data/data.db')
     c = db.cursor()
