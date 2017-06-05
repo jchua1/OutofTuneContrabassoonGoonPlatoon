@@ -100,24 +100,36 @@ def results():
         
         lunchReq = {}
         lunchReq['4'] = whoChoseWhat('lunch', 1, 4)
-        lunchReq['4'].append(whoChoseWhat('lunch', 2, 4))
-        lunchReq['4'].append(whoChoseWhat('lunch', 3, 4))
+        if len(whoChoseWhat('lunch', 2, 4)) != 0:
+            lunchReq['4'].append(whoChoseWhat('lunch', 2, 4))
+        if len(whoChoseWhat('lunch', 3, 4)) != 0:
+            lunchReq['4'].append(whoChoseWhat('lunch', 3, 4))
 
         lunchReq['5'] = whoChoseWhat('lunch', 1, 5)
-        lunchReq['5'].append(whoChoseWhat('lunch', 2, 5))
-        lunchReq['5'].append(whoChoseWhat('lunch', 3, 5))
+        if len(whoChoseWhat('lunch', 2, 5)) != 0:
+            lunchReq['5'].append(whoChoseWhat('lunch', 2, 5))
+        if len(whoChoseWhat('lunch', 3, 5)) != 0:
+            lunchReq['5'].append(whoChoseWhat('lunch', 3, 5))
 
         lunchReq['6'] = whoChoseWhat('lunch', 1, 6)
-        lunchReq['6'].append(whoChoseWhat('lunch', 2, 6))
-        lunchReq['6'].append(whoChoseWhat('lunch', 3, 6))
+        if len(whoChoseWhat('lunch', 2, 6)) != 0:
+            lunchReq['6'].append(whoChoseWhat('lunch', 2, 6))
+        if len(whoChoseWhat('lunch', 3, 6)) != 0:
+            lunchReq['6'].append(whoChoseWhat('lunch', 3, 6))
 
         lunchReq['7'] = whoChoseWhat('lunch', 1, 7)
-        lunchReq['7'].append(whoChoseWhat('lunch', 2, 7))
-        lunchReq['7'].append(whoChoseWhat('lunch', 3, 7))
+        if len(whoChoseWhat('lunch', 2, 7)) != 0:
+            lunchReq['7'].append(whoChoseWhat('lunch', 2, 7))
+        if len(whoChoseWhat('lunch', 3, 7)) != 0:
+            lunchReq['7'].append(whoChoseWhat('lunch', 3, 7))
 
         lunchReq['8'] = whoChoseWhat('lunch', 1, 8)
-        lunchReq['8'].append(whoChoseWhat('lunch', 2, 8))
-        lunchReq['8'].append(whoChoseWhat('lunch', 3, 8))
+        if len(whoChoseWhat('lunch', 2, 8)) != 0:
+            lunchReq['8'].append(whoChoseWhat('lunch', 2, 8))
+        if len(whoChoseWhat('lunch', 3, 8)) != 0:
+            lunchReq['8'].append(whoChoseWhat('lunch', 3, 8))
+
+        print lunchReq
         
         return render_template('results.html', early = earlySched, late = lateSched, lunch = lunchReq)
     else:
