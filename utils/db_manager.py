@@ -1,4 +1,25 @@
 import sqlite3, hashlib, random, csv
+'''
+DATABASE FUNCTION DIRECTORY:
+isAdmin(email)
+tExists(email)
+editResponse(email,responses)
+addTeachers()
+addAdmins()
+addCourses()
+getCourses(email)
+getPds(email)
+getRooms(email)
+getLunch(email)
+getYears(email)
+getEmail(fname,lname)
+getName(email)
+courseList()
+deptSort(department)
+whoChoseWhat(area,number,choice)
+hasEntry(email)
+'''
+
 
 #this is going to be used in an if(teacher email): [if(matches admin) 2] [else 1] else: 0
 #requires OAuth or smth
