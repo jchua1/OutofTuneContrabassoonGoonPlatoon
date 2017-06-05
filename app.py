@@ -95,47 +95,31 @@ def form():
 def results():
     # REMOVE THE "or 'teacher' in session" BEFORE THE PROJECT IS DONE
     if 'admin' in session or 'teacher' in session:
-        '''
-        i like forgot how 2d arrays work so psuedocode
-        periods[2][]
-        periods[0] = whoChoseWhat('pds','','1-9')
-        periods[1] = whoChoseWhat('pds','','2-10')
-        ^PASS periods TO JORDAN
-
-        courses[3][]
-        courses[0] = whoChoseWhat('course',1,
-        uh idk how to do courses
-
-        lunchs[4][]
-        add all the 4th periods
-        lunchs[0][0] = whoChoseWhat('lunch',1,4)
-        lunchs[0][1] = whoChoseWhat('lunch',2,4)
-        lunchs[0][2] = whoChoseWhat('lunch',3,4)
-
-        add all the 5th periods
-        lunchs[1][0] = whoChoseWhat('lunch',1,5)
-        lunchs[1][1] = whoChoseWhat('lunch',2,5)
-        lunchs[1][2] = whoChoseWhat('lunch',3,5)
-
-        add all the 6th periods
-        lunchs[2][0] = whoChoseWhat('lunch',1,6)
-        lunchs[2][1] = whoChoseWhat('lunch',2,6)
-        lunchs[2][2] = whoChoseWhat('lunch',3,6)
-
-        add all the 7th periods
-        lunchs[3][0] = whoChoseWhat('lunch',1,7)
-        lunchs[3][1] = whoChoseWhat('lunch',2,7)
-        lunchs[3][2] = whoChoseWhat('lunch',3,7)
-        ^PASS lunchs TO JORDAN
-
-        i assume all my passing is through jinja'''
-<<<<<<< HEAD
+        earlySched = whoChoseWhat('pds', '', '1-9')
+        lateSched = whoChoseWhat('pds', '', '2-10')
         
-        #return render_template("results.html", early=['a','b','c'], late=['a','b','c'], lunch={'fourth':['a','b','c'],'fifth':['a','b','c'],'sixth':['a','b','c'],'seventh':['a','b','c'])
-=======
+        lunchReq = {}
+        lunchReq['4'] = whoChoseWhat('lunch', 1, 4)
+        lunchReq['4'].append(whoChoseWhat('lunch', 2, 4))
+        lunchReq['4'].append(whoChoseWhat('lunch', 3, 4))
 
-        return render_template("results.html", early=['a','b','c'], late=['a','b','c'], lunch={'fourth':['a','b','c']})
->>>>>>> 93e34783b9009c9d8d9d44db0fa6c89da2d9612f
+        lunchReq['5'] = whoChoseWhat('lunch', 1, 5)
+        lunchReq['5'].append(whoChoseWhat('lunch', 2, 5))
+        lunchReq['5'].append(whoChoseWhat('lunch', 3, 5))
+
+        lunchReq['6'] = whoChoseWhat('lunch', 1, 6)
+        lunchReq['6'].append(whoChoseWhat('lunch', 2, 6))
+        lunchReq['6'].append(whoChoseWhat('lunch', 3, 6))
+
+        lunchReq['7'] = whoChoseWhat('lunch', 1, 7)
+        lunchReq['7'].append(whoChoseWhat('lunch', 2, 7))
+        lunchReq['7'].append(whoChoseWhat('lunch', 3, 7))
+
+        lunchReq['8'] = whoChoseWhat('lunch', 1, 8)
+        lunchReq['8'].append(whoChoseWhat('lunch', 2, 8))
+        lunchReq['8'].append(whoChoseWhat('lunch', 3, 8))
+        
+        return render_template('results.html', early = earlySched, late = lateSched, lunch = lunchReq)
     else:
         return redirect("/")
 

@@ -8,19 +8,51 @@
   <body>
     <h1>Welcome</h1>
 
-    <h2>Early Schedule</h2>
+    <h2>Early Schedule (1-9)</h2>
     <ul>
       {% for teacher in early %}
       <li>{{teacher}}</li>
       {% endfor %}
     </ul>
 
-    <h2>Late Schedule</h2>
+    <h2>Late Schedule (2-10)</h2>
     <ul>
       {% for teacher in late %}
       <li>{{teacher}}</li>
       {% endfor %}
     </ul>
+
+    <h2>Lunch Requests</h2>
+    4<ul>
+      {% for teacher in lunch['4'] %}
+      <li>{{teacher}}</li>
+      {% endfor %}
+    </ul>
+
+    5<ul>
+      {% for teacher in lunch['5'] %}
+      <li>{{teacher}}</li>
+      {% endfor %}
+    </ul>
+
+    6<ul>
+      {% for teacher in lunch['6'] %}
+      <li>{{teacher}}</li>
+      {% endfor %}
+    </ul>
+
+    7<ul>
+      {% for teacher in lunch['7'] %}
+      <li>{{teacher}}</li>
+      {% endfor %}
+    </ul>
+
+    8<ul>
+      {% for teacher in lunch['8'] %}
+      <li>{{teacher}}</li>
+      {% endfor %}
+    </ul>
+    
 
 
     
