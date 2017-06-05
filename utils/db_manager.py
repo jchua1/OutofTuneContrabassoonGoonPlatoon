@@ -22,8 +22,6 @@ def tExists( email ):
     users.execute(q)
     info = users.fetchall()
 
-    print info
-
     if (len(info) > 0):
         return True #teacher already exists in database
     else:
@@ -211,8 +209,6 @@ def deptSort(department):
         if key[item[0]] == department:
             list.append(item)
     return list
-
-print deptSort('Math')
     
 #whoChoseWhat( 'lunch', 1, 4 ) returns who put 4th period as their 1st choice for lunch
 #can replace lunch with room or course, and 1-3 are all valid

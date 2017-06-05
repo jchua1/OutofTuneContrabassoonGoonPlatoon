@@ -51,7 +51,7 @@
 
     <div class="container">
       <p>
-	{{ msg }}
+	<b>{{ msg }}</b>
       </p>
     </div>
 
@@ -59,7 +59,6 @@
       <p>
 	Please indicate your scheduling preferences for the upcoming semester below.<br>
       </p>
-      
       <form method="POST" action="/submit">
 	<b>Course Preferences:</b><br>
 	Departments:&nbsp;
@@ -85,7 +84,7 @@
 	    </select></td>
 	  </tr>
 	  <tr>
-	    <td>2nd:</td>
+	    <td>2nd:&nbsp;</td>
 	    <td><select name="course2">
 		<option value="" selected></option>
 		{% for course in courses %}
@@ -104,22 +103,53 @@
 	<br>
 
 	<b>Preferred Work Periods (select one):</b><br>
-	<input type="radio" name="period" value="option1" required>1 - 9 (8:00AM - 2:50PM)<br>
-	<input type="radio" name="period" value="option2">2 - 10 (8:45AM - 3:35PM)<br><br>
+	{% if submitted %}
+	{% if pds == '1-9' %}
+	<input type="radio" name="period" value="option1" required checked> 1 - 9 (8:00AM - 2:50PM)<br>
+	<input type="radio" name="period" value="option2"> 2 - 10 (8:45AM - 3:35PM)<br><br>
+	{% else %}
+	<input type="radio" name="period" value="option1" required> 1 - 9 (8:00AM - 2:50PM)<br>
+	<input type="radio" name="period" value="option2" checked> 2 - 10 (8:45AM - 3:35PM)<br><br>
+	{% endif %}
+	{% else %}
+	<input type="radio" name="period" value="option1" required> 1 - 9 (8:00AM - 2:50PM)<br>
+	<input type="radio" name="period" value="option2"> 2 - 10 (8:45AM - 3:35PM)<br><br>
+	{% endif %}
 	
 	<b>Room Preferences:</b><br>
 	<table>
 	  <tr>
+	    {% if submitted %}
+	    <td>1st:</td>
+	    <td><input type="text" value={{ rooms[0] }} name="room1" required></td>
+	  </tr>
+	  <tr>
+	    <td>2nd:&nbsp;</td>
+	    {% if rooms[1] == '' %}
+	    <td><input type="text" placeholder="Room 2" name="room2"></td>
+	    {% else %}
+	    <td><input type="text" value={{ rooms[1] }} name="room2"></td>
+	    {% endif %}
+	  </tr>
+	  <tr>
+	    <td>3rd:</td>
+	    {% if rooms[2] == '' %}
+	    <td><input type="text" placeholder="Room 3" name="room3"></td>
+	    {% else %}
+	    <td><input type="text" value={{ rooms[2] }} name="room3"></td>
+	    {% endif %}
+	    {% else %}
 	    <td>1st:</td>
 	    <td><input type="text" placeholder="Room 1" name="room1" required></td>
 	  </tr>
 	  <tr>
-	    <td>2nd:</td>
+	    <td>2nd:&nbsp;</td>
 	    <td><input type="text" placeholder="Room 2" name="room2"></td>
 	  </tr>
 	  <tr>
 	    <td>3rd:</td>
 	    <td><input type="text" placeholder="Room 3" name="room3"></td>
+	    {% endif %}
 	  </tr>
 	</table>
 	<br>
@@ -128,33 +158,153 @@
 	<table>
 	  <tr>
 	    <td>1st:</td>
-	    <td><input type="radio" name="lunch1" value="4" required>4</td>
-	    <td><input type="radio" name="lunch1" value="5">5</td>
-	    <td><input type="radio" name="lunch1" value="6">6</td>
-	    <td><input type="radio" name="lunch1" value="7">7</td>
+	    <!-- I apologize beforehand for this horrible block of html and jinja but it was the easiest/only way I knew how to do this. -->
+	    {% if submitted %}
+	    {% if lunchs[0] == '4' %}
+	    <td><input type="radio" name="lunch1" value="4" required checked>4&nbsp;</td>
+	    <td><input type="radio" name="lunch1" value="5">5&nbsp;</td>
+	    <td><input type="radio" name="lunch1" value="6">6&nbsp;</td>
+	    <td><input type="radio" name="lunch1" value="7">7&nbsp;</td>
+	    <td><input type="radio" name="lunch1" value="8">8</td>
+	    {% elif lunchs[0] == '5' %}
+	    <td><input type="radio" name="lunch1" value="4" required>4&nbsp;</td>
+	    <td><input type="radio" name="lunch1" value="5" checked>5&nbsp;</td>
+	    <td><input type="radio" name="lunch1" value="6">6&nbsp;</td>
+	    <td><input type="radio" name="lunch1" value="7">7&nbsp;</td>
+	    <td><input type="radio" name="lunch1" value="8">8</td>
+	    {% elif lunchs[0] == '6' %}
+	    <td><input type="radio" name="lunch1" value="4" required>4&nbsp;</td>
+	    <td><input type="radio" name="lunch1" value="5">5&nbsp;</td>
+	    <td><input type="radio" name="lunch1" value="6" checked>6&nbsp;</td>
+	    <td><input type="radio" name="lunch1" value="7">7&nbsp;</td>
+	    <td><input type="radio" name="lunch1" value="8">8</td>
+	    {% elif lunchs[0] == '7' %}
+	    <td><input type="radio" name="lunch1" value="4" required>4&nbsp;</td>
+	    <td><input type="radio" name="lunch1" value="5">5&nbsp;</td>
+	    <td><input type="radio" name="lunch1" value="6">6&nbsp;</td>
+	    <td><input type="radio" name="lunch1" value="7" checked>7&nbsp;</td>
+	    <td><input type="radio" name="lunch1" value="8">8</td>
+	    {% else %}
+	    <td><input type="radio" name="lunch1" value="4" required>4&nbsp;</td>
+	    <td><input type="radio" name="lunch1" value="5">5&nbsp;</td>
+	    <td><input type="radio" name="lunch1" value="6">6&nbsp;</td>
+	    <td><input type="radio" name="lunch1" value="7">7&nbsp;</td>
+	    <td><input type="radio" name="lunch1" value="8" checked>8</td>
+	    {% endif %}
+	  </tr>
+	  <tr>
+	    <td>2nd:&nbsp;</td>
+	    {% if lunchs[1] == '' %}
+	    <td><input type="radio" name="lunch2" value="4">4&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="5">5&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="6">6&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="7">7&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="8">8</td>
+	    {% elif lunchs[1] == '4' %}
+	    <td><input type="radio" name="lunch2" value="4" checked>4&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="5">5&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="6">6&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="7">7&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="8">8</td>
+	    {% elif lunchs[1] == '5' %}
+	    <td><input type="radio" name="lunch2" value="4">4&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="5" checked>5&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="6">6&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="7">7&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="8">8</td>
+	    {% elif lunchs[1] == '6' %}
+	    <td><input type="radio" name="lunch2" value="4">4&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="5">5&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="6" checked>6&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="7">7&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="8">8</td>
+	    {% elif lunchs[1] == '7' %}
+	    <td><input type="radio" name="lunch2" value="4">4&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="5">5&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="6">6&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="7" checked>7&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="8">8</td>
+	    {% else %}
+	    <td><input type="radio" name="lunch2" value="4">4&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="5">5&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="6">6&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="7">7&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="8" checked>8</td>
+	    {% endif %}
+	  </tr>
+	  <tr>
+	    <td>3rd:</td>
+	    {% if lunchs[2] == '' %}
+	    <td><input type="radio" name="lunch2" value="4">4&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="5">5&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="6">6&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="7">7&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="8">8</td>
+	    {% elif lunchs[2] == '4' %}
+	    <td><input type="radio" name="lunch2" value="4" checked>4&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="5">5&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="6">6&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="7">7&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="8">8</td>
+	    {% elif lunchs[2] == '5' %}
+	    <td><input type="radio" name="lunch2" value="4">4&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="5" checked>5&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="6">6&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="7">7&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="8">8</td>
+	    {% elif lunchs[2] == '6' %}
+	    <td><input type="radio" name="lunch2" value="4">4&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="5">5&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="6" checked>6&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="7">7&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="8">8</td>
+	    {% elif lunchs[2] == '7' %}
+	    <td><input type="radio" name="lunch2" value="4">4&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="5">5&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="6">6&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="7" checked>7&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="8">8</td>
+	    {% else %}
+	    <td><input type="radio" name="lunch2" value="4">4&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="5">5&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="6">6&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="7">7&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="8" checked>8</td>
+	    {% endif %}
+	  </tr>
+	  {% else %}
+	  <td><input type="radio" name="lunch1" value="4" required>4&nbsp;</td>
+	    <td><input type="radio" name="lunch1" value="5">5&nbsp;</td>
+	    <td><input type="radio" name="lunch1" value="6">6&nbsp;</td>
+	    <td><input type="radio" name="lunch1" value="7">7&nbsp;</td>
 	    <td><input type="radio" name="lunch1" value="8">8</td>
 	  </tr>
 	  <tr>
-	    <td>2nd:</td>
-	    <td><input type="radio" name="lunch2" value="4">4</td>
-	    <td><input type="radio" name="lunch2" value="5">5</td>
-	    <td><input type="radio" name="lunch2" value="6">6</td>
-	    <td><input type="radio" name="lunch2" value="7">7</td>
+	    <td>2nd:&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="4">4&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="5">5&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="6">6&nbsp;</td>
+	    <td><input type="radio" name="lunch2" value="7">7&nbsp;</td>
 	    <td><input type="radio" name="lunch2" value="8">8</td>
 	  </tr>
 	  <tr>
 	    <td>3rd:</td>
-	    <td><input type="radio" name="lunch3" value="4">4</td>
-	    <td><input type="radio" name="lunch3" value="5">5</td>
-	    <td><input type="radio" name="lunch3" value="6">6</td>
-	    <td><input type="radio" name="lunch3" value="7">7</td>
+	    <td><input type="radio" name="lunch3" value="4">4&nbsp;</td>
+	    <td><input type="radio" name="lunch3" value="5">5&nbsp;</td>
+	    <td><input type="radio" name="lunch3" value="6">6&nbsp;</td>
+	    <td><input type="radio" name="lunch3" value="7">7&nbsp;</td>
 	    <td><input type="radio" name="lunch3" value="8">8</td>
 	  </tr>
+	  {% endif %}
 	</table>
 	<br>
 
-	<b>Years taught at Stuyvesant HS:</><br>
+	<b>Years taught at Stuyvesant HS:</b><br>
+	{% if submitted %}
+	<input type="text" value={{ years }} name="years" required>
+	{% else %}
 	<input type="text" placeholder="Years" name="years" required>
+	{% endif %}
 	<br><br>
 
 	
