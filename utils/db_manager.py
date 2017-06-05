@@ -22,8 +22,6 @@ def tExists( email ):
     users.execute(q)
     info = users.fetchall()
 
-    print info
-
     if (len(info) > 0):
         return True #teacher already exists in database
     else:

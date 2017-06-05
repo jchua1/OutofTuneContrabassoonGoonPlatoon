@@ -15,17 +15,22 @@ app.secret_key = os.urandom(32)
 @app.route("/")
 def index():
     if "admin" in session:
+        if hasEntry(session['admin']):
+            return render_template("home.html", isLoggedIn = True, isAdmin = True, user = getName(session['admin']), submitted = True)
         return render_template("home.html", isLoggedIn = True, isAdmin = True, user = getName(session['admin']))
+    
     if "teacher" in session:
         if hasEntry(session['teacher']):
             return render_template("home.html", isLoggedIn = True, isAdmin = False, user = getName(session['teacher']), submitted = True)
         return render_template("home.html", isLoggedIn = True, isAdmin = False, user = getName(session['teacher']), submitted = False)
+    
     return render_template("home.html")
 
 @app.route("/logout")
 def logout():
     if "teacher" in session:
         session.pop("teacher")
+        
     if "admin" in session:
         session.pop("admin")
     return render_template("home.html", msg = "You have successfully logged out.")
@@ -72,10 +77,17 @@ def sample_info_route():
 def form():
     if 'admin' in session:
         courseStuff = deptSort('Art')
-        return render_template("form.html", courses = courseStuff, isAdmin = True)
-    if 'admin' in session or 'teacher' in session:
+        if hasEntry(session['admin']):
+            user = session['admin']
+            return render_template("form.html", courses = courseStuff, isAdmin = True, submitted = True, coursesPicked = getCourses(user), pds = getPds(user), rooms = getRooms(user), lunchs = getLunch(user), years = getYears(user), msg = "You have already filled out the form.  You may edit your responses and resubmit this form.")
+        return render_template("form.html", courses = courseStuff, isAdmin = True, submitted = False)
+    
+    if 'teacher' in session:
         courseStuff = deptSort('Art')
-        return render_template("form.html", courses = courseStuff)
+        if hasEntry(session['teacher']):
+            user = session['teacher']
+            return render_template("form.html", courses = courseStuff, submitted = True, coursesPicked = getCourses(user), pds = getPds(user), rooms = getRooms(user), lunchs = getLunch(user), years = getYears(user), msg = "You have already filled out the form.  You may edit your responses and resubmit this form.")
+        return render_template("form.html", courses = courseStuff, submitted = False)
     else:
         return redirect("/")
 
@@ -129,6 +141,7 @@ def submit():
         responses = request.form
         editResponse(user, responses)
         return render_template("home.html", msg = "Your scheduling preferences have been recorded. Your AP will be able to view all teacher preferences and assign schedules accordingly. You may log out now.", isLoggedIn = True, isAdmin = False, user = getName(session['teacher']), submitted = True)
+    
     if 'admin' in session:
         user = session['admin']
         responses = request.form

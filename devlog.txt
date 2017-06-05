@@ -116,3 +116,10 @@ Admins now have the form buttons availalbe to them and can fill it out/submit se
 lawrenceL -- 2017-06-02 13:52
 Tabs on navbar fixed for admins/teachers
 Added radio buttons to form and fixed a little format
+
+lawrenceL -- 2017-06-04 22:38
+If the user has already submitted the form, then when they access the form again, all the user's submissions will be prefilled in the form (with the exception of COURSES, will work on that tomorrow since that code section will change)
+
+jasonC -- 2017-06-04 23:52
+Added department radio buttons for 2nd course selection and 3rd course selection
+Wrote javascript file to detect clicks on radio buttons and edit the contents of the drop down menu to contain only courses from that specific department
