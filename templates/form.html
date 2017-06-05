@@ -63,42 +63,68 @@
       <form method="POST" action="/submit">
 	<b>Course Preferences:</b><br>
 	Departments:&nbsp;
-	<input type="radio" name="dept" value="Art" checked>Art
-	&nbsp;<input type="radio" name="dept" value="English">English
-	&nbsp;<input type="radio" name="dept" value="Foreign Language">Foreign Language
-	&nbsp;<input type="radio" name="dept" value="History">History
-	&nbsp;<input type="radio" name="dept" value="CPR">CPR
-	&nbsp;<input type="radio" name="dept" value="Math">Math
-	&nbsp;<input type="radio" name="dept" value="Phys Ed">Phys Ed
-	&nbsp;<input type="radio" name="dept" value="Science">Science
-	&nbsp;<input type="radio" name="dept" value="Tech">Tech
-	&nbsp;<input type="radio" name="dept" value="Music">Music
-	&nbsp;<input type="radio" name="dept" value="Misc">Misc
+	<input type="radio" name="dept1" value="Art" onclick='change' checked>Art
+	&nbsp;<input type="radio" name="dept1" value="English">English
+	&nbsp;<input type="radio" name="dept1" value="Foreign Language">Foreign Language
+	&nbsp;<input type="radio" name="dept1" value="History">History
+	&nbsp;<input type="radio" name="dept1" value="CPR">CPR
+	&nbsp;<input type="radio" name="dept1" value="Math">Math
+	&nbsp;<input type="radio" name="dept1" value="Phys Ed">Phys Ed
+	&nbsp;<input type="radio" name="dept1" value="Science">Science
+	&nbsp;<input type="radio" name="dept1" value="Tech">Tech
+	&nbsp;<input type="radio" name="dept1" value="Music">Music
+	&nbsp;<input type="radio" name="dept1" value="Misc">Misc
 	<table>
 	  <tr>
 	    <td>1st:</td>
-	    <td><select name="course1" required>
+	    <td><select id="course1" required>
 		<option value="" selected></option>
 		{% for course in courses %}
 		<option value="{{ course }}">{{ course }}</option>
 		{% endfor %}
 	    </select></td>
-	  </tr>
+	  </tr><br>
+	  Departments:&nbsp;
+	  <input type="radio" name="dept2" value="Art" checked>Art
+	  &nbsp;<input type="radio" name="dept2" value="English">English
+	  &nbsp;<input type="radio" name="dept2" value="Foreign Language">Foreign Language
+	  &nbsp;<input type="radio" name="dept2" value="History">History
+	  &nbsp;<input type="radio" name="dept2" value="CPR">CPR
+	  &nbsp;<input type="radio" name="dept2" value="Math">Math
+	  &nbsp;<input type="radio" name="dept2" value="Phys Ed">Phys Ed
+	  &nbsp;<input type="radio" name="dept2" value="Science">Science
+	  &nbsp;<input type="radio" name="dept2" value="Tech">Tech
+	  &nbsp;<input type="radio" name="dept2" value="Music">Music
+	  &nbsp;<input type="radio" name="dept2" value="Misc">Misc
 	  <tr>
 	    <td>2nd:</td>
-	    <td><select name="course2">
+	    <td><select id="course2">
 		<option value="" selected></option>
 		{% for course in courses %}
 		<option value="{{ course }}">{{ course }}</option>
 		{% endfor %}
-	  </tr>
+	    </select></td>
+	  </tr><br>
+	  Departments:&nbsp;
+	  <input type="radio" name="dept3" value="Art" checked>Art
+	  &nbsp;<input type="radio" name="dept3" value="English">English
+	  &nbsp;<input type="radio" name="dept3" value="Foreign Language">Foreign Language
+	  &nbsp;<input type="radio" name="dept3" value="History">History
+	  &nbsp;<input type="radio" name="dept3" value="CPR">CPR
+	  &nbsp;<input type="radio" name="dept3" value="Math">Math
+	  &nbsp;<input type="radio" name="dept3" value="Phys Ed">Phys Ed
+	  &nbsp;<input type="radio" name="dept3" value="Science">Science
+	  &nbsp;<input type="radio" name="dept3" value="Tech">Tech
+	  &nbsp;<input type="radio" name="dept3" value="Music">Music
+	  &nbsp;<input type="radio" name="dept3" value="Misc">Misc
 	  <tr>
 	    <td>3rd:</td>
-	    <td><select name="course3">
+	    <td><select id="course3">
 		<option value="" selected></option>
 		{% for course in courses %}
 		<option value="{{ course }}">{{ course }}</option>
 		{% endfor %}
+	    </select></td>
 	  </tr>
 	</table>
 	<br>
@@ -153,7 +179,7 @@
 	</table>
 	<br>
 
-	<b>Years taught at Stuyvesant HS:</><br>
+	<b>Years taught at Stuyvesant HS:</b><br>
 	<input type="text" placeholder="Years" name="years" required>
 	<br><br>
 
@@ -163,4 +189,6 @@
     </div>
   </body>
 
+  <script type="text/javascript" src="../static/js/script.js">
+  </script>
 </html>

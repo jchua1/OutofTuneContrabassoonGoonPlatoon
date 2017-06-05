@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, url_for
+from flask import Flask, render_template, request, redirect, session, url_for, json
 
 #pip install oauth2client
 from oauth2client.client import flow_from_clientsecrets, OAuth2Credentials
@@ -28,7 +28,6 @@ def logout():
         session.pop("teacher")
     if "admin" in session:
         session.pop("admin")
-    print session.keys()
     return render_template("home.html", msg = "You have successfully logged out.")
 
 @app.route("/login")
@@ -72,10 +71,10 @@ def sample_info_route():
 @app.route("/form")
 def form():
     if 'admin' in session:
-        courseStuff = courseList()
+        courseStuff = deptSort('Art')
         return render_template("form.html", courses = courseStuff, isAdmin = True)
     if 'admin' in session or 'teacher' in session:
-        courseStuff = courseList()
+        courseStuff = deptSort('Art')
         return render_template("form.html", courses = courseStuff)
     else:
         return redirect("/")
@@ -128,9 +127,6 @@ def submit():
     if 'teacher' in session:
         user = session['teacher']
         responses = request.form
-        print responses
-        print user
-        print 'form submitted'
         editResponse(user, responses)
         return render_template("home.html", msg = "Your scheduling preferences have been recorded. Your AP will be able to view all teacher preferences and assign schedules accordingly. You may log out now.", isLoggedIn = True, isAdmin = False, user = getName(session['teacher']), submitted = True)
     if 'admin' in session:
@@ -139,6 +135,12 @@ def submit():
         editResponse(user, responses)
         return render_template("home.html", msg = "Your scheduling preferences have been recorded. You may log out or view all teacher requests.", isLoggedIn = True, isAdmin = True, user = getName(session['admin']), submitted = True)
     return redirect("/")
+
+@app.route('/departments', methods = ['POST'])
+def deptList():
+    dept = request.form['department']
+    ret = deptSort(dept)
+    return json.dumps(ret)
 
 if __name__ == '__main__':
     app.debug = True
