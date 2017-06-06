@@ -104,43 +104,55 @@ def results():
         for course in courseStuff:
             courseNum[course] = len(whoChoseWhat('course', 1, course)) + whoChoseWhat('course', 2, course) + whoChoseWhat('course', 3, course)
             courseReq[course] = whoChoseWhat('course', 1, course)
-            if len (whoChoseWhat('course', 2, course)) != 0:
-                courseReq[course].append(whoChoseWhat('course', 2, course))
-            if len (whoChoseWhat('course', 3, course)) != 0:
-                courseReq[course].append(whoChoseWhat('course', 3, course))
+            c2 = whoChoseWhat('course', 2, course)
+            c3 = whoChoseWhat('course', 3, course)
+            for c in c2:
+                courseReq[course].append(c)
+            for c in c3:
+                courseReq[course].append(c)
         print courseReq
         
         
         lunchReq = {}
         lunchReq['4'] = whoChoseWhat('lunch', 1, 4)
-        if len(whoChoseWhat('lunch', 2, 4)) != 0:
-            lunchReq['4'].append(whoChoseWhat('lunch', 2, 4))
-        if len(whoChoseWhat('lunch', 3, 4)) != 0:
-            lunchReq['4'].append(whoChoseWhat('lunch', 3, 4))
+        l2 = whoChoseWhat('lunch', 2, 4)
+        l3 = whoChoseWhat('lunch', 3, 4)
+        for l in l2:
+            lunchReq['4'].append(l)
+        for l in l3:
+            lunchReq['4'].append(l)
 
         lunchReq['5'] = whoChoseWhat('lunch', 1, 5)
-        if len(whoChoseWhat('lunch', 2, 5)) != 0:
-            lunchReq['5'].append(whoChoseWhat('lunch', 2, 5))
-        if len(whoChoseWhat('lunch', 3, 5)) != 0:
-            lunchReq['5'].append(whoChoseWhat('lunch', 3, 5))
+        l2 = whoChoseWhat('lunch', 2, 5)
+        l3 = whoChoseWhat('lunch', 3, 5)
+        for l in l2:
+            lunchReq['5'].append(l)
+        for l in l3:
+            lunchReq['5'].append(l)
 
         lunchReq['6'] = whoChoseWhat('lunch', 1, 6)
-        if len(whoChoseWhat('lunch', 2, 6)) != 0:
-            lunchReq['6'].append(whoChoseWhat('lunch', 2, 6))
-        if len(whoChoseWhat('lunch', 3, 6)) != 0:
-            lunchReq['6'].append(whoChoseWhat('lunch', 3, 6))
+        l2 = whoChoseWhat('lunch', 2, 6)
+        l3 = whoChoseWhat('lunch', 3, 6)
+        for l in l2:
+            lunchReq['6'].append(l)
+        for l in l3:
+            lunchReq['6'].append(l)
 
         lunchReq['7'] = whoChoseWhat('lunch', 1, 7)
-        if len(whoChoseWhat('lunch', 2, 7)) != 0:
-            lunchReq['7'].append(whoChoseWhat('lunch', 2, 7))
-        if len(whoChoseWhat('lunch', 3, 7)) != 0:
-            lunchReq['7'].append(whoChoseWhat('lunch', 3, 7))
+        l2 = whoChoseWhat('lunch', 2, 7)
+        l3 = whoChoseWhat('lunch', 3, 7)
+        for l in l2:
+            lunchReq['7'].append(l)
+        for l in l3:
+            lunchReq['7'].append(l)
 
         lunchReq['8'] = whoChoseWhat('lunch', 1, 8)
-        if len(whoChoseWhat('lunch', 2, 8)) != 0:
-            lunchReq['8'].append(whoChoseWhat('lunch', 2, 8))
-        if len(whoChoseWhat('lunch', 3, 8)) != 0:
-            lunchReq['8'].append(whoChoseWhat('lunch', 3, 8))
+        l2 = whoChoseWhat('lunch', 2, 8)
+        l3 = whoChoseWhat('lunch', 3, 8)
+        for l in l2:
+            lunchReq['8'].append(l)
+        for l in l3:
+            lunchReq['8'].append(l)
 
         print lunchReq
         
