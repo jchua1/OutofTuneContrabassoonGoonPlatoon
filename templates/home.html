@@ -70,26 +70,32 @@
 	<a href="/form" class="btn btn-primary" role="button">Form</a>
       </p>
       {% else %}
-      <p>
-	To submit your scheduling requests for the next term, click this button:
-	<a href="/form" class="btn btn-primary" role="button">Form</a>
-      </p>
-      {% endif %}
-      <p>
-	To view the results of form submissions, click this button:
-	<a href="/results" class="btn btn-primary" role="button">Results</a>
-      </p>
-      {% else %}
+
+      <div class="row">
+	<div class="col-sm-6">
+	  <p>
+	    Please submit your scheduling requests for the next term here:<br>
+	    <a href="/form" class="btn btn-primary" role="button">Form</a>
+	  </p>
+	</div>
+	{% endif %}
+	<div class="col-sm-6">
+	  <p>
+	    View the results of teacher form submissions here:<br>
+	    <a href="/results" class="btn btn-primary" role="button">Results</a>
+	  </p>
+	</div>
+	{% else %}
 
       <!-- TEACHER MSG -->
       {% if submitted %}
       <p>
-	<b>You have already submitted a response.</b> To edit your existing scheduling requests, click this button:
+	<b>You have already submitted a response.</b> Edit your existing scheduling requests here:
 	<a href="/form" class="btn btn-primary" role="button">Form</a>
       </p>
       {% else %}
       <p>
-	To submit your scheduling requests for the next term, click this button:
+	Please submit your scheduling requests for the next term here:
 	<a href="/form" class="btn btn-primary" role="button">Form</a>
       </p>
       {% endif %}
