@@ -129,3 +129,6 @@ User's course submissions will now be prefilled if the user has submitted the fo
 
 lawrenceL -- 2017-06-05 21:27
 Submitting is fixed, the form is basically bugfree and everything with the database/form is good to go
+
+jasonC -- 2017-06-06 05:20
+Wrote javascript files to attempt to create the bar graph and to view which teachers requested which courses using radio buttons
