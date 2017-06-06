@@ -98,7 +98,10 @@ def results():
         earlySched = whoChoseWhat('pds', '', '1-9')
         lateSched = whoChoseWhat('pds', '', '2-10')
 
-        return render_template('results.html', early = earlySched, late = lateSched, courses = acourses)
+        if 'admin' in session:
+            return render_template('results.html', early = earlySched, late = lateSched, courses = acourses, isLoggedIn = True, isAdmin = True)
+        else:
+            return render_template('results.html', early = earlySched, late = lateSched, courses = acourses, isLoggedIn = True, isAdmin = False)
     else:
         return redirect("/")
         

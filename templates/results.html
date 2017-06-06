@@ -1,7 +1,24 @@
 <!DOCTYPE html>
-<html>
-
-  <style>    
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Results</title>
+    
+    <!-- Bootstrap -->
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+  </head>
+  
+  <style>  
     .chart div {
     font: 10px sans-serif;
     background-color: steelblue;
@@ -12,66 +29,99 @@
     }
   </style>
   
-  <head>
-    <title>Results</title>
-  </head>
-  
-  <body>
-    <h1>Welcome</h1>
+  <body style="background-color: #fafafa; font-family: arial">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
 
-    <p>
-      <b>Early Schedule (Periods 1-9)</b>
-      <ul>
-	{% for teacher in early %}
-	<li>{{teacher}}</li>
-	{% endfor %}
-      </ul>
-    </p>
-
-    <p>
-      <b>Late Schedule (Periods 2-10)</b>
-      <ul>
-	{% for teacher in late %}
-	<li>{{teacher}}</li>
-	{% endfor %}
-      </ul>
-    </p>
-
-    <p>
-      <b>Teacher Requests</b>:<br>
-      Name, (Course Choice), Years Taught, (Lunch Pref 1, Lunch Pref 2, Lunch Pref 3), (Room Pref 1, Room Pref 2, Room Pref 3)<br></br>
-      Departments:
-      <input type="radio" name="dept" value="Art" checked>Art
-      <input type="radio" name="dept" value="English">English
-      <input type="radio" name="dept" value="Foreign Language">Foreign Language
-      <input type="radio" name="dept" value="History">History
-      <input type="radio" name="dept" value="CPR">CPR
-      <input type="radio" name="dept" value="Math">Math
-      <input type="radio" name="dept" value="Phys Ed">Phys Ed
-      <input type="radio" name="dept" value="Science">Science
-      <input type="radio" name="dept" value="Tech">Tech
-      <input type="radio" name="dept" value="Music">Music
-      <input type="radio" name="dept" value="Misc">Misc
-
-      <br></br>
-
-      <select name="course" id="course">
-	<option value="" selected></option>
-  	{% for course in courses %}
-  	<option value="{{ course }}">{{ course }}</option>
-  	{% endfor %}
-      </select>
-
-      <ul id="list">
-      </ul>
-
-      <div class="chart" id="courses">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+	<ul class="nav navbar-nav">
+	  <li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+	  {% if isLoggedIn %}
+	  <li><a href="/form"><span class="glyphicon glyphicon-list-alt"></span> Form</a></li>
+	  {% if isAdmin %}
+	  <li><a href="/results"><span class="glyphicon glyphicon-stats"></span> Results</a></li>
+	  {% endif %}
+	</ul>
+	<ul class="nav navbar-nav navbar-right">
+	  <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+	  {% endif %}
+	</ul>
       </div>
-    </p>
-    
-    
-  </body>
+    </nav>
+    <!-- NAVBAR -->
 
+    <!-- HEADER -->
+    <div class="container">
+      <div class="page-header">
+	<h2>Results</h2>
+      </div>
+    </div>
+    <!-- HEADER -->
+
+    <div class="container">
+
+      <div class="row">
+	<div class="col-sm-6">
+	  <b>Early Schedule (Periods 1-9)</b>
+	  <ul>
+	    {% for teacher in early %}
+	    <li>{{teacher}}</li>
+	    {% endfor %}
+	  </ul>
+	</div>
+	<div class="col-sm-6">
+	  <b>Late Schedule (Periods 2-10)</b>
+	  <ul>
+	    {% for teacher in late %}
+	    <li>{{teacher}}</li>
+	    {% endfor %}
+	  </ul>
+	</div>
+      </div>
+
+      <div class="row">
+	<div class="col-sm-12">
+	  <p>
+	    <b>Teacher Requests</b>:<br>
+	    Name, (Course Choice), Years Taught, (Lunch Pref 1, Lunch Pref 2, Lunch Pref 3), (Room Pref 1, Room Pref 2, Room Pref 3)<br></br>
+	  Departments:
+	    <input type="radio" name="dept" value="Art" checked>Art
+	    <input type="radio" name="dept" value="English">English
+	    <input type="radio" name="dept" value="Foreign Language">Foreign Language
+	    <input type="radio" name="dept" value="History">History
+	    <input type="radio" name="dept" value="CPR">CPR
+	    <input type="radio" name="dept" value="Math">Math
+	    <input type="radio" name="dept" value="Phys Ed">Phys Ed
+	    <input type="radio" name="dept" value="Science">Science
+	    <input type="radio" name="dept" value="Tech">Tech
+	    <input type="radio" name="dept" value="Music">Music
+	    <input type="radio" name="dept" value="Misc">Misc
+	    
+	    <br></br>
+	    
+	    <select name="course" id="course">
+	      <option value="" selected></option>
+  	      {% for course in courses %}
+  	      <option value="{{ course }}">{{ course }}</option>
+  	      {% endfor %}
+	    </select>
+	  
+	    <ul id="list">
+	    </ul>
+	    
+	    <div class="chart" id="courses">
+	    </div>
+	</div>
+      </div>
+      
+    </div>
+      
+  </body>
+  
   
   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
