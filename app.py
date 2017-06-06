@@ -76,7 +76,7 @@ def sample_info_route():
 @app.route("/form")
 def form():
     if 'admin' in session:
-        courseStuff = deptSort('Art')
+        courseStuff = courseList()
         if hasEntry(session['admin']):
             user = session['admin']
             return render_template("form.html", courses = courseStuff, isAdmin = True, submitted = True, coursesPicked = getCourses(user), pds = getPds(user), rooms = getRooms(user), lunchs = getLunch(user), years = getYears(user), msg = "You have already filled out the form.  You may edit your responses and resubmit this form.")

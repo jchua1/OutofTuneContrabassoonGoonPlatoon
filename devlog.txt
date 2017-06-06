@@ -123,3 +123,6 @@ If the user has already submitted the form, then when they access the form again
 jasonC -- 2017-06-04 23:52
 Added department radio buttons for 2nd course selection and 3rd course selection
 Wrote javascript file to detect clicks on radio buttons and edit the contents of the drop down menu to contain only courses from that specific department
+
+lawrenceL -- 2017-06-05 20:10
+User's course submissions will now be prefilled if the user has submitted the form
