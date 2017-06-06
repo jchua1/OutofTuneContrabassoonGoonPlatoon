@@ -97,13 +97,12 @@
   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
   
   <script>
-    var dict = {{ courseNums }};
     var keys = [];
     var reqs = [];
-    for (var key in dict) {
-        keys.push(key + " - " + dict[key].toString());
-        reqs.push(dict[key]);
-    }
+    {% for key in courseNums %}
+        keys.push({{ key }} + " - " + {{courseNums[key]}}.toString());
+        reqs.push({{ courseNums[key]}});
+    {% endfor %}
         
     d3.select(".chart")
         .selectAll("div")
