@@ -332,5 +332,3 @@ def hasEntry(email):
     db.close()
 
     return len(entry) != 0
-
-print whoChoseWhat('course', 1, 'FJS87X - AP JAPANESE IV 1 OF 2')
