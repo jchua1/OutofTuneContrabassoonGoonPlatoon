@@ -99,14 +99,17 @@ def results():
         lateSched = whoChoseWhat('pds', '', '2-10')
 
         courseReq = {}
+        courseNum = {}
         courseStuff = courseList()
         for course in courseStuff:
+            courseNum[course] = len(whoChoseWhat('course', 1, course)) + whoChoseWhat('course', 2, course) + whoChoseWhat('course', 3, course)
             courseReq[course] = whoChoseWhat('course', 1, course)
             if len (whoChoseWhat('course', 2, course)) != 0:
                 courseReq[course].append(whoChoseWhat('course', 2, course))
             if len (whoChoseWhat('course', 3, course)) != 0:
                 courseReq[course].append(whoChoseWhat('course', 3, course))
         print courseReq
+        
         
         lunchReq = {}
         lunchReq['4'] = whoChoseWhat('lunch', 1, 4)
@@ -141,7 +144,7 @@ def results():
 
         print lunchReq
         
-        return render_template('results.html', early = earlySched, late = lateSched, course = courseReq, lunch = lunchReq)
+        return render_template('results.html', early = earlySched, late = lateSched, courseNums = courseNum, course = courseReq, lunch = lunchReq)
     else:
         return redirect("/")
 
