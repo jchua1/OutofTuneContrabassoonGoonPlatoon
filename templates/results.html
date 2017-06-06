@@ -2,13 +2,13 @@
 <html>
 
   <style>    
-    .chart div{
-    font: 12px sans-serif;
-    background-color: lightblue;
+    .chart div {
+    font: 10px sans-serif;
+    background-color: steelblue;
     text-align: right;
-    padding: 8px;
+    padding: 3px;
     margin: 1px;
-    color: black;
+    color: white;
     }
   </style>
   
@@ -38,85 +38,44 @@
     </p>
 
     <p>
-      <b>Teacher Requests</b><br>
+      <b>Teacher Requests</b>:<br>
+      Name, (Course Choice), Years Taught, (Lunch Pref 1, Lunch Pref 2, Lunch Pref 3), (Room Pref 1, Room Pref 2, Room Pref 3)<br></br>
       Departments:
-      <input type="radio" name="dept1" value="Art" checked>Art
-      <input type="radio" name="dept1" value="English">English
-      <input type="radio" name="dept1" value="Foreign Language">Foreign Language
-      <input type="radio" name="dept1" value="History">History
-      <input type="radio" name="dept1" value="CPR">CPR
-      <input type="radio" name="dept1" value="Math">Math
-      <input type="radio" name="dept1" value="Phys Ed">Phys Ed
-      <input type="radio" name="dept1" value="Science">Science
-      <input type="radio" name="dept1" value="Tech">Tech
-      <input type="radio" name="dept1" value="Music">Music
-      <input type="radio" name="dept1" value="Misc">Misc
+      <input type="radio" name="dept" value="Art" checked>Art
+      <input type="radio" name="dept" value="English">English
+      <input type="radio" name="dept" value="Foreign Language">Foreign Language
+      <input type="radio" name="dept" value="History">History
+      <input type="radio" name="dept" value="CPR">CPR
+      <input type="radio" name="dept" value="Math">Math
+      <input type="radio" name="dept" value="Phys Ed">Phys Ed
+      <input type="radio" name="dept" value="Science">Science
+      <input type="radio" name="dept" value="Tech">Tech
+      <input type="radio" name="dept" value="Music">Music
+      <input type="radio" name="dept" value="Misc">Misc
 
-      <div class="chart">
+      <br></br>
+
+      <select name="course" id="course">
+	<option value="" selected></option>
+  	{% for course in courses %}
+  	<option value="{{ course }}">{{ course }}</option>
+  	{% endfor %}
+      </select>
+
+      <ul id="list">
+      </ul>
+
+      <div class="chart" id="courses">
       </div>
     </p>
-
     
-
-    <p>
-      <b>Lunch Requests</b>
-      4th Period:<ol>
-	{% for teacher in lunch['4'] %}
-	<li>{{teacher}}</li>
-	{% endfor %}
-      </ol>
-      
-      5th Period:<ol>
-	{% for teacher in lunch['5'] %}
-	<li>{{teacher}}</li>
-	{% endfor %}
-      </ol>
-      
-      6th Period:<ol>
-	{% for teacher in lunch['6'] %}
-	<li>{{teacher}}</li>
-      {% endfor %}
-      </ol>
-      
-      7th Period:<ol>
-	{% for teacher in lunch['7'] %}
-	<li>{{teacher}}</li>
-	{% endfor %}
-      </ol>
-      
-      8th Period:<ol>
-	{% for teacher in lunch['8'] %}
-	<li>{{teacher}}</li>
-	{% endfor %}
-      </ol>
-    </p>
     
   </body>
 
   
   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-  
-  <script>
-    var keys = [];
-    var reqs = [];
-    {% for key in courseNums %}
-        keys.push({{ key }} + " - " + {{courseNums[key]}}.toString());
-        reqs.push({{ courseNums[key]}});
-    {% endfor %}
-        
-    d3.select(".chart")
-        .selectAll("div")
-        .data(reqs)
-        .enter()
-        .append("div")
-        .style("width", function(d) {
-            return d*15 + "px";
-        })
-        .data(keys)
-        .text(function(d) {
-            return d;
-        })
-   
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="../static/js/results.js">
   </script>
   
 </html>

@@ -31,6 +31,8 @@ def isAdmin( email ):
     users.execute(q)
     info = users.fetchall()
 
+    db.close()
+
     if (len(info) > 0): #check if any admin has a matching email
         return True
     return False
@@ -43,6 +45,8 @@ def tExists( email ):
     q = "SELECT * FROM teachers WHERE email = \"%s\";" % ( email )
     users.execute(q)
     info = users.fetchall()
+
+    db.close()
 
     if (len(info) > 0):
         return True #teacher already exists in database
@@ -77,6 +81,7 @@ def editResponse( email, responses ):
         query = 'INSERT INTO responses VALUES("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s");' % (email, course1, course2, course3, pds, room1, room2, room3, lunch1, lunch2, lunch3, years)
     c.execute(query)
     db.commit()
+    db.close()
 
 #adds the teachers from the csv file to the database
 #executed every runtime to keep updated
@@ -99,6 +104,7 @@ def addTeachers():
         query = 'INSERT INTO teachers VALUES("%s", "%s", "%s");' % (email, first, last)
         c.execute(query)
     db.commit()#gotta save everything, ya feel?
+    db.close()
     f.close()
 
 #adds the admins from a separate csv from the teachers to the database
@@ -120,6 +126,7 @@ def addAdmins():
         query = 'INSERT INTO admins VALUES("%s");' % (email)
         c.execute(query)
     db.commit()
+    db.close()
     f.close()
     
 #adds the list of courses from a csv to the database
@@ -141,6 +148,7 @@ def addCourses():
         query = 'INSERT INTO courses VALUES("%s", "%s");' % (course, coursename)
         c.execute(query)
     db.commit()
+    db.close()
     f.close()
 
 #gotta run these
@@ -156,6 +164,8 @@ def getCourses(email):
     q = "SELECT course1,course2,course3 FROM responses WHERE email = '%s';" %(email)
     c.execute(q)
     courses = c.fetchall()[0]
+
+    db.close()
     
     return courses
 
@@ -167,6 +177,8 @@ def getPds(email):
     q = "SELECT pds FROM responses WHERE email = '%s';" %(email)
     c.execute(q)
     pds = c.fetchall()[0][0]
+
+    db.close()
     
     return pds
 
@@ -178,6 +190,8 @@ def getRooms(email):
     q = "SELECT room1,room2,room3 FROM responses WHERE email = '%s';" %(email)
     c.execute(q)
     rooms = c.fetchall()[0]
+
+    db.close()
     
     return rooms
 
@@ -189,6 +203,8 @@ def getLunch(email):
     q = "SELECT lunch1,lunch2,lunch3 FROM responses WHERE email = '%s';" %(email)
     c.execute(q)
     lunches = c.fetchall()[0]
+
+    db.close()
     
     return lunches
     
@@ -200,6 +216,8 @@ def getYears(email):
     q = "SELECT years FROM responses WHERE email = '%s';" %(email)
     c.execute(q)
     years = c.fetchall()[0][0]
+
+    db.close()
     
     return years
 
@@ -211,6 +229,8 @@ def getEmail( fname, lname ):
     q = "SELECT email FROM teachers WHERE first = '%s' AND last = '%s';" %(fname.capitalize(), lname.capitalize())
     c.execute(q)
     email = c.fetchall()[0][0]
+
+    db.close()
     
     return email
 
@@ -223,6 +243,8 @@ def getName( email ):
     c.execute(q)
     name = c.fetchall()[0]
     name = name[0] + " " + name[1]
+
+    db.close()
     
     return name
 
@@ -238,6 +260,8 @@ def courseList():
     mess = c.fetchall()
     for item in mess:
         list.append(item[0] + " - " + item[1])
+
+    db.close()
     return list
 
 #returns a list of courses in the specified department
@@ -248,6 +272,7 @@ def deptSort(department):
     for item in courseList():
         if key[item[0]] == department:
             list.append(item)
+
     return list
     
 #whoChoseWhat( 'lunch', 1, 4 ) returns who put 4th period as their 1st choice for lunch
@@ -255,6 +280,8 @@ def deptSort(department):
 #whoChoseWhat( 'pds', '', '1-9' ) if responses aren't ranked, number is an empty string
 def whoChoseWhat( area, number, choice ):
     people = []
+    if choice == '':
+        return people
     number = str(number)
     choice = str(choice)
     
@@ -266,8 +293,31 @@ def whoChoseWhat( area, number, choice ):
     emails = c.fetchall()
     for email in emails:
         people.append(getName(email[0]))
+
+    db.close()
     
     return people
+
+#same as whoChoseWhat but returns email instead
+def whoChoseWhatE(area, number, choice):
+    ret = []
+    if choice == '':
+        return ret
+    number = str(number)
+    choice = str(choice)
+    
+    db = sqlite3.connect('data/data.db')
+    c = db.cursor()
+    
+    q = "SELECT email FROM responses WHERE %s%s = '%s';" %(area, number, choice)
+    c.execute(q)
+    emails = c.fetchall()
+    for email in emails:
+        ret.append(email[0])
+
+    db.close()
+    
+    return ret
 
 #checks if a teacher has already responded
 def hasEntry(email):
@@ -277,4 +327,10 @@ def hasEntry(email):
     q = 'SELECT * FROM responses WHERE email = "%s";' %(email)
     c.execute(q)
 
-    return len(c.fetchall()) != 0
+    entry = c.fetchall()
+    
+    db.close()
+
+    return len(entry) != 0
+
+print whoChoseWhat('course', 1, 'FJS87X - AP JAPANESE IV 1 OF 2')

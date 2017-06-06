@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, session, url_for, json
 
-#pip install oauth2client
 from oauth2client.client import flow_from_clientsecrets, OAuth2Credentials
 
 from httplib2 import Http
@@ -95,75 +94,13 @@ def form():
 def results():
     # REMOVE THE "or 'teacher' in session" BEFORE THE PROJECT IS DONE
     if 'admin' in session or 'teacher' in session:
+        acourses = deptSort('Art')
         earlySched = whoChoseWhat('pds', '', '1-9')
         lateSched = whoChoseWhat('pds', '', '2-10')
 
-        courseReq = {}
-        courseNum = {}
-        courseStuff = courseList()
-        for course in courseStuff:
-            courseNum[course] = len(whoChoseWhat('course', 1, course)) + len(whoChoseWhat('course', 2, course)) + len(whoChoseWhat('course', 3, course))
-            courseReq[course] = whoChoseWhat('course', 1, course)
-            c2 = whoChoseWhat('course', 2, course)
-            c3 = whoChoseWhat('course', 3, course)
-            for c in c2:
-                courseReq[course].append(c)
-            for c in c3:
-                courseReq[course].append(c)
-        print courseReq
-        
-        
-        lunchReq = {}
-        lunchReq['4'] = whoChoseWhat('lunch', 1, 4)
-        l2 = whoChoseWhat('lunch', 2, 4)
-        l3 = whoChoseWhat('lunch', 3, 4)
-        for l in l2:
-            lunchReq['4'].append(l)
-        for l in l3:
-            lunchReq['4'].append(l)
-
-        lunchReq['5'] = whoChoseWhat('lunch', 1, 5)
-        l2 = whoChoseWhat('lunch', 2, 5)
-        l3 = whoChoseWhat('lunch', 3, 5)
-        for l in l2:
-            lunchReq['5'].append(l)
-        for l in l3:
-            lunchReq['5'].append(l)
-
-        lunchReq['6'] = whoChoseWhat('lunch', 1, 6)
-        l2 = whoChoseWhat('lunch', 2, 6)
-        l3 = whoChoseWhat('lunch', 3, 6)
-        for l in l2:
-            lunchReq['6'].append(l)
-        for l in l3:
-            lunchReq['6'].append(l)
-
-        lunchReq['7'] = whoChoseWhat('lunch', 1, 7)
-        l2 = whoChoseWhat('lunch', 2, 7)
-        l3 = whoChoseWhat('lunch', 3, 7)
-        for l in l2:
-            lunchReq['7'].append(l)
-        for l in l3:
-            lunchReq['7'].append(l)
-
-        lunchReq['8'] = whoChoseWhat('lunch', 1, 8)
-        l2 = whoChoseWhat('lunch', 2, 8)
-        l3 = whoChoseWhat('lunch', 3, 8)
-        for l in l2:
-            lunchReq['8'].append(l)
-        for l in l3:
-            lunchReq['8'].append(l)
-
-        print lunchReq
-        
-        return render_template('results.html', early = earlySched, late = lateSched, courseNums = courseNum, course = courseReq, lunch = lunchReq)
+        return render_template('results.html', early = earlySched, late = lateSched, courses = acourses)
     else:
         return redirect("/")
-
-#DELETE THIS LATER
-@app.route('/pie')
-def pie():
-    return render_template("index.html")
         
 @app.route('/submit', methods = ['POST'])
 def submit():
@@ -185,6 +122,61 @@ def deptList():
     dept = request.form['department']
     ret = deptSort(dept)
     return json.dumps(ret)
+
+@app.route('/responses')
+def responses():
+    courseNum = {}
+    courseStuff = courseList()
+    for course in courseStuff:
+        c1 = whoChoseWhat('course', 1, course)
+        c2 = whoChoseWhat('course', 2, course)
+        c3 = whoChoseWhat('course', 3, course)
+        courseNum[course] = len(c1) + len(c2) + len(c3)
+    return json.dumps(courseNum)
+
+@app.route('/teachers', methods = ['POST'])
+def teachers():
+    course = request.form['course']
+    teachers = []
+    courseStuff = courseList()
+    c1 = whoChoseWhatE('course', 1, course)
+    c2 = whoChoseWhatE('course', 2, course)
+    c3 = whoChoseWhatE('course', 3, course)
+    for c in c1:
+        name = getName(c)
+        choice = '(1st Choice)'
+        years = getYears(c) + ' years'
+        lunch = choicesToString(getLunch(c))
+        rooms = choicesToString(getRooms(c))
+        e = name + ', ' + choice + ', ' + years + ', ' + lunch + ', ' + rooms
+        teachers.append(e)
+    for c in c2:
+        name = getName(c)
+        choice = '(2nd Choice)'
+        years = getYears(c) + ' years'
+        lunch = choicesToString(getLunch(c))
+        rooms = choicesToString(getRooms(c))
+        e = name + ', ' + choice + ', ' + years + ', ' + lunch + ', ' + rooms
+        teachers.append(e)
+    for c in c3:
+        name = getName(c)
+        choice = '(3rd Choice)'
+        years = getYears(c) + ' years'
+        lunch = choicesToString(getLunch(c))
+        rooms = choicesToString(getRooms(c))
+        e = name + ', ' + choice + ', ' + years + ', ' + lunch + ', ' + rooms
+        teachers.append(e)
+    return json.dumps(teachers)
+
+def choicesToString(choices):
+    ret = '('
+    for i in range(3):
+        if i == 2:
+            ret += choices[i]
+        else:
+            ret += choices[i] + ', '
+    ret += ')'
+    return ret
 
 if __name__ == '__main__':
     app.debug = True
