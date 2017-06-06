@@ -102,7 +102,7 @@ def results():
         courseNum = {}
         courseStuff = courseList()
         for course in courseStuff:
-            courseNum[course] = len(whoChoseWhat('course', 1, course)) + whoChoseWhat('course', 2, course) + whoChoseWhat('course', 3, course)
+            courseNum[course] = len(whoChoseWhat('course', 1, course)) + len(whoChoseWhat('course', 2, course)) + len(whoChoseWhat('course', 3, course))
             courseReq[course] = whoChoseWhat('course', 1, course)
             c2 = whoChoseWhat('course', 2, course)
             c3 = whoChoseWhat('course', 3, course)
