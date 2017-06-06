@@ -126,3 +126,6 @@ Wrote javascript file to detect clicks on radio buttons and edit the contents of
 
 lawrenceL -- 2017-06-05 20:10
 User's course submissions will now be prefilled if the user has submitted the form
+
+lawrenceL -- 2017-06-05 21:27
+Submitting is fixed, the form is basically bugfree and everything with the database/form is good to go
