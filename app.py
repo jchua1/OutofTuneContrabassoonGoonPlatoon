@@ -1,12 +1,10 @@
-from flask import Flask, render_template, request, redirect, session, url_for, json
-
+from flask import Flask, render_template, request, redirect, session, url_for, json, stream_with_context
 from oauth2client.client import flow_from_clientsecrets, OAuth2Credentials
-
 from httplib2 import Http
-
 from utils.db_manager import *
-
-import json, os
+from werkzeug.datastructures import Headers
+from werkzeug.wrappers import Response
+import json, os, csv, cStringIO
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
@@ -141,7 +139,6 @@ def responses():
 def teachers():
     course = request.form['course']
     teachers = []
-    courseStuff = courseList()
     c1 = whoChoseWhatE('course', 1, course)
     c2 = whoChoseWhatE('course', 2, course)
     c3 = whoChoseWhatE('course', 3, course)
@@ -170,6 +167,74 @@ def teachers():
         e = name + ', ' + choice + ', ' + years + ', ' + lunch + ', ' + rooms
         teachers.append(e)
     return json.dumps(teachers)
+
+@app.route('/csv')
+def generateCSV():
+    dept = 'Art'
+    #dept = request.form['dept']
+    def generate(dept):
+        courses = deptSort(dept)
+        teachers = {}
+        
+        for c in courses:
+            c1 = whoChoseWhatE('course', 1, c)
+            c2 = whoChoseWhatE('course', 2, c)
+            c3 = whoChoseWhatE('course', 3, c)
+
+            for e in c1:
+                if e not in teachers:
+                    name = getName(e)
+                    years = getYears(e)
+                    cpref = getCourses(e)
+                    pds = getPds(e)
+                    lpref = getLunch(e)
+                    rpref = getRooms(e)
+                    teachers[e] = [name, years, cpref[0], cpref[1], cpref[2], pds, lpref[0], lpref[1], lpref[2], rpref[0], rpref[1], rpref[2]]
+            for e in c2:
+                if e not in teachers:
+                    name = getName(e)
+                    years = getYears(e)
+                    cpref = getCourses(e)
+                    pds = getPds(e)
+                    lpref = getLunch(e)
+                    rpref = getRooms(e)
+                    teachers[e] = [name, years, cpref[0], cpref[1], cpref[2], pds, lpref[0], lpref[1], lpref[2], rpref[0], rpref[1], rpref[2]]
+            for e in c3:
+                if e not in teachers:
+                    name = getName(e)
+                    years = getYears(e)
+                    cpref = getCourses(e)
+                    pds = getPds(e)
+                    lpref = getLunch(e)
+                    rpref = getRooms(e)
+                    teachers[e] = [name, years, cpref[0], cpref[1], cpref[2], pds, lpref[0], lpref[1], lpref[2], rpref[0], rpref[1], rpref[2]]
+    
+            data = cStringIO.StringIO()
+            w = csv.writer(data)
+            head = ['Email', 'Name', 'Years Taught', 'Course Pref 1', 'Course Pref 2', 'Course Pref 3', 'Schedule Preference', 'Lunch Pref 1', 'Lunch Pref 2', 'Lunch Pref 3', 'Room Pref 1', 'Room Pref 2', 'Room Pref 3']
+            w.writerow(head)
+            yield data.getvalue()
+            data.seek(0)
+            data.truncate(0)
+
+            print teachers
+            
+            for t in teachers:
+                responses = teachers[t]
+                row = [t, responses[0], responses[1], responses[2], responses[3], responses[4], responses[5], responses[6], responses[7], responses[8], responses[9], responses[10], responses[11]]
+                w.writerow(row)
+                yield data.getvalue()
+                data.seek(0)
+                data.truncate(0)
+    
+    f = dept.lower() + 'responses.csv'
+    headers = Headers()
+    headers.set('Content-Disposition', 'attachment', filename = f)
+
+    return Response(
+        stream_with_context(generate(dept)),
+        mimetype='text/csv', headers=headers
+    )
 
 def choicesToString(choices):
     ret = '('

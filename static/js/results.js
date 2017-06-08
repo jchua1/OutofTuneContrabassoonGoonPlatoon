@@ -72,3 +72,22 @@ course.addEventListener('change', function() {
 	       }
 	   });
 });
+
+var button = document.getElementById('download');
+
+button.addEventListener('click', function() {
+    for (var i = 0; i < dept.length; i++) {
+	if (dept[i].checked) {
+	    var d = dept[i].value;
+	    console.log(d);
+	    break;
+	}
+    }
+    $.post('/csv',
+	   {
+	       dept: d
+	   },
+	   function(ret) {
+	       return ret
+	   });
+});
