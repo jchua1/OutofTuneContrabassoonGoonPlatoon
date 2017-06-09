@@ -4,6 +4,8 @@ DATABASE FUNCTION DIRECTORY:
 whoChoseWhat(area,number,choice)  - find users who made the specified selection
 isAdmin(email)                    - check if user is an admin
 tExists(email)                    - check if teacher is in database
+isProcessed(email)                - check if a teacher has already had their schedule created
+process(email)                    - marks a teacher's responses as being responded to
 getEmail(fname,lname)             - get a teacher's email based on their name
 getName(email)                    - get a teacher's name based on their email
 hasEntry(email)                   - check if user has already responded to the form
