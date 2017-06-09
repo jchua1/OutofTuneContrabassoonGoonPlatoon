@@ -31,10 +31,14 @@
 	  <li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
 	  {% if isLoggedIn %}
 	  {% if isAdmin %}
-	  <li><a href="/form"><span class="glyphicon glyphicon-list-alt"></span> Form</a></li>
+	      {% if not processed %}
+    	      <li><a href="/form"><span class="glyphicon glyphicon-list-alt"></span> Form</a></li>
+	      {% endif %}
 	  <li><a href="/results"><span class="glyphicon glyphicon-stats"></span> Results</a></li>
 	  {% else %}
-	  <li><a href="/form"><span class="glyphicon glyphicon-list-alt"></span> Form</a></li>
+	      {% if not processed %}
+	      <li><a href="/form"><span class="glyphicon glyphicon-list-alt"></span> Form</a></li>
+	      {% endif %}
 	  {% endif %}
 	</ul>
 	<ul class="nav navbar-nav navbar-right">
@@ -84,39 +88,32 @@
       </div>
       {% else %}
 
-      {% if processed %}
       <div class="row">
 	<div class="col-sm-6">
 	  <p>
+	    {% if processed %}
 	    <b>The form is currently closed.</b>
-	  </p>
-	</div>
-
-      {% else %}
-      <div class="row">
-	<div class="col-sm-6">
-	  <p>
+	    {% else %}
 	    Please submit your scheduling requests for the next term here:<br>
 	    <a href="/form" class="btn btn-primary" role="button">Form</a>
+	    {% endif %}
 	  </p>
 	</div>
-
-      {% endif %}
-      
+	
 	<div class="col-sm-6">
 	  <p>
 	    View the results of teacher form submissions here:<br>
 	    <a href="/results" class="btn btn-primary" role="button">Results</a>
 	  </p>
 	</div>
-    </div>
-    {% endif %}
-    {% else %}
+      </div>
+      {% endif %}
+      {% else %}
 
-    <!-- TEACHER MSG -->
-    {% if processed %}
+      <!-- TEACHER MSG -->
+      {% if processed %}
       <p>
-	<b>Your AP has processed your requests and created your schedule. Thank you.</b>
+	<b>Your AP is processing/has processed your requests.  Please contact them directly to see if you have been assigned a schedule.</b>
       </p>
       {% else %}
       

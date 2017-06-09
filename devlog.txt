@@ -124,6 +124,9 @@ jasonC -- 2017-06-04 23:52
 Added department radio buttons for 2nd course selection and 3rd course selection
 Wrote javascript file to detect clicks on radio buttons and edit the contents of the drop down menu to contain only courses from that specific department
 
+jordanC -- 2017-06-05 04:41
+Worked on results page to display info
+
 lawrenceL -- 2017-06-05 20:10
 User's course submissions will now be prefilled if the user has submitted the form
 
@@ -132,3 +135,10 @@ Submitting is fixed, the form is basically bugfree and everything with the datab
 
 jasonC -- 2017-06-06 05:20
 Wrote javascript files to attempt to create the bar graph and to view which teachers requested which courses using radio buttons
+
+jordanC -- 2017-06-06 06:47
+Continued to work on final bootstrapping, jinja, and more results display
+
+jordanC -- 2017-06-09 02:45
+Final bootstrap and jinja touches for closed and open forms
+

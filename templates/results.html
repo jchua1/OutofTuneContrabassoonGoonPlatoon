@@ -41,7 +41,9 @@
 	<ul class="nav navbar-nav">
 	  <li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
 	  {% if isLoggedIn %}
-	  <li><a href="/form"><span class="glyphicon glyphicon-list-alt"></span> Form</a></li>
+	      {% if not processed %}
+	      <li><a href="/form"><span class="glyphicon glyphicon-list-alt"></span> Form</a></li>
+	      {% endif %}
 	  {% if isAdmin %}
 	  <li><a href="/results"><span class="glyphicon glyphicon-stats"></span> Results</a></li>
 	  {% endif %}
@@ -64,7 +66,7 @@
 
     <div class="container">
 
-      <div class="row">
+      <div class="row" style="padding: 20px">
 	<div class="col-sm-6">
 	  <b>Early Schedule (Periods 1-9)</b>
 	  <ul>
@@ -84,7 +86,7 @@
       </div>
 
       <div class="row">
-	<div class="col-sm-12">
+	<div class="col-sm-10">
 	  <p>
 	    <b>Teacher Requests</b>:<br>
 	    Name, (Course Choice), Years Taught, (Lunch Pref 1, Lunch Pref 2, Lunch Pref 3), (Room Pref 1, Room Pref 2, Room Pref 3)<br></br>
@@ -116,23 +118,32 @@
 	    <div class="chart" id="courses">
 	    </div>
 	</div>
+
+	<div class="col-sm-2">
+	  <form action="/csv" method="GET">
+	    Download a spreadsheet of teacher responses for the selected department:<br>
+	    <input type="submit" class="btn btn-primary" id="download" value="Download">
+	  </form>
+	  
+	  <br>
+	  {% if not processed %}
+	  <form action="/close" method="GET">
+	    Close the form here:</br>
+	    <input type="submit" class="btn btn-primary" value="Close the Form"><br>
+	    NOTE: Teachers will <b>not</b> be able to submit preferences until you choose to open the form again.
+	  </form>
+	  
+	  {% else %}
+	  <br>
+	  <form action="/open" method="GET">
+	    Open the form for the new semester here:<br>
+	    <input type="submit" class="btn btn-primary" value="Open the Form"><br>
+	    <b>NOTE: This will delete all past teacher responses. You may want to download the current responses before opening the form.</b> 
+	  </form>
+	  {% endif %}
+	  
+	</div>
       </div>
-
-      <br>
-      <form action="/csv" method="GET">
-	Click this button to download a spreadsheet of teacher responses for the selected department: <input type="submit" class="btn btn-primary" id="download" value="Download">
-      </form>
-
-      <br>
-      <form action="/close" method="GET">
-	Click this button to close the form. <b>Teachers will not be able to submit preferences until you choose to open the form again.</b> <input type="submit" class="btn btn-primary" value="Close">
-      </form>
-
-      <br>
-      <form action="/open" method="GET">
-	Click this button to open the form. <b>This will delete all past teacher responses and allow them to submit new preferences for the next semester.</b> <input type="submit" class="btn btn-primary" value="Open">
-      </form>
-    </div>
       
   </body>
   
