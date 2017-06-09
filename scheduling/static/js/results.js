@@ -1,8 +1,7 @@
-var graph = d3.select();
-
 var keys = [];
 var reqs = [];
 
+//get ajax call to populate keys and reqs with data for the d3 bar graph
 $.get('/responses',
       function(courseNum) {
 	  courseNum = JSON.parse(courseNum);
@@ -13,6 +12,7 @@ $.get('/responses',
 	  }
       });
 
+//creates d3 bar graph (does not work)
  d3.select(".chart")
     .selectAll("div")
     .data(reqs)
@@ -26,8 +26,10 @@ $.get('/responses',
         return d;
     })
 
+//list of department radio buttons
 var dept = document.getElementsByName('dept');
 
+//function that uses a post ajax call to populate the drop down menu with courses from the department of the checked radio button
 var change = function(dept) {
     var courseList = document.getElementById('course');
     $.post('/departments',
@@ -44,12 +46,15 @@ var change = function(dept) {
 	   });
 }
 
+//adds change() as a function that triggers on click to the given element
 function addListener(element, value) {
     element.addEventListener('click', function() {
 	change(value)
     });
 }
 
+//loops through list of department radio buttons and adds change() as a function that triggers on click to each button
+//adds a second on-click function that finds the checked radio button and uses an ajax call to edit deptData in __init__.py, populating it with responses from all teachers who requested a course in the department of the checked radio button
 for (var i = 0; i < dept.length; i++) {
     addListener(dept[i], dept[i].value);
     dept[i].addEventListener('click', function() {
@@ -70,9 +75,12 @@ for (var i = 0; i < dept.length; i++) {
     });
 }
 
+//drop down menu
 var course = document.getElementById('course');
+//unordered list
 var list = document.getElementById('list');
 
+//adds an on-change function to the drop down menu that uses a post ajax call to populate the unordered list with responses from teachers who requested the selected course in the drop down menu
 course.addEventListener('change', function() {
     list.innerHTML = '';
     $.post('/teachers',
@@ -89,6 +97,7 @@ course.addEventListener('change', function() {
 	   });
 });
 
+//initial population of deptData in __init__.py with responses from teacher who requested a couse in the Art department
 $.post('/deptResponses',
        {
 	   dept: 'Art'

@@ -1,4 +1,4 @@
-import sqlite3, hashlib, random, csv
+import sqlite3, hashlib, random, csv, sys, os
 '''
 DATABASE FUNCTION DIRECTORY:
 whoChoseWhat(area,number,choice)  - find users who made the specified selection
@@ -23,11 +23,17 @@ addAdmins()                       - adds admins from csv to db
 addCourses()                      - adds courses from csv to db
 '''
 
+DIR = os.path.dirname(__file__)
+if DIR != '.':
+    DIR += '/../'
+    pname = DIR + 'data/'
+else:
+    pname = 'data/'
 
 #this is going to be used in an if(teacher email): [if(matches admin) 2] [else 1] else: 0
 #requires OAuth or smth
 def isAdmin( email ):
-    db = sqlite3.connect("data/data.db")
+    db = sqlite3.connect(pname + 'data.db')
     users = db.cursor()
     
     q = "SELECT * FROM admins WHERE email = \"%s\";" % ( email )
@@ -42,7 +48,7 @@ def isAdmin( email ):
         
 #this method takes a teacher's email and returns true if they have an entry in teachers table
 def tExists( email ):
-    db = sqlite3.connect("data/data.db")
+    db = sqlite3.connect(pname + 'data.db')
     users = db.cursor()
 
     q = "SELECT * FROM teachers WHERE email = \"%s\";" % ( email )
@@ -57,7 +63,7 @@ def tExists( email ):
         return False #if false it should ask a teacher for their name + department, then add them to the db
 
 def isProcessed( email ):
-    db = sqlite3.connect('data/data.db')
+    db = sqlite3.connect(pname + 'data.db')
     c = db.cursor()
     
     q = "SELECT processed FROM teachers WHERE email = '%s';" % ( email )
@@ -69,20 +75,21 @@ def isProcessed( email ):
     return info[0][0] == "True"
 
 def process( email ):
-    db = sqlite3.connect('data/data.db')
+    db = sqlite3.connect(pname + 'data.db')
     c = db.cursor()
     
     q = "UPDATE teachers SET processed = '%s' WHERE email = '%s';" % ( "True", email )
     c.execute(q)
     info = c.fetchall()
-    
+
+    db.commit()
     db.close()
     
     return True
 
 #processes all teachers (closes the form)
 def processAll():
-    db = sqlite3.connect('data/data.db')
+    db = sqlite3.connect(pname + 'data.db')
     c = db.cursor()
     
     q = "UPDATE teachers SET processed = 'True';"
@@ -95,7 +102,7 @@ def processAll():
 #this method alters all of the teacher (corresponding to their email)'s form responses
 #uses hasEntry to see if it needs to be inserted or updated
 def editResponse( email, responses ):
-    db = sqlite3.connect('data/data.db')
+    db = sqlite3.connect(pname + 'data.db')
     c = db.cursor()
 
     course1 = responses['course1']
@@ -124,7 +131,7 @@ def editResponse( email, responses ):
 
 #clears the response database
 def clearResponses():
-    db = sqlite3.connect('data/data.db')
+    db = sqlite3.connect(pname + 'data.db')
     c = db.cursor()
 
     query = 'DROP TABLE IF EXISTS responses'#refreshing the table
@@ -139,7 +146,8 @@ def clearResponses():
 #adds the teachers from the csv file to the database
 #executed every runtime to keep updated
 def addTeachers():
-    db = sqlite3.connect('data/data.db')
+    print 'Adding teachers...'
+    db = sqlite3.connect(pname + 'data.db')
     c = db.cursor()
 
     query = 'DROP TABLE IF EXISTS teachers'#refreshing the table
@@ -148,7 +156,7 @@ def addTeachers():
     query = 'CREATE TABLE teachers (email TEXT, first TEXT, last TEXT, processed TEXT);'
     c.execute(query)
 
-    f = open('data/teachers.csv')
+    f = open(pname + 'teachers.csv')
     reader = csv.DictReader(f)
     for row in reader:
         email = row['Email address']
@@ -163,7 +171,8 @@ def addTeachers():
 #adds the admins from a separate csv from the teachers to the database
 #basically the same as teachers except only emails are necessary for checking
 def addAdmins():
-    db = sqlite3.connect('data/data.db')
+    print 'Adding admins...'
+    db = sqlite3.connect(pname + 'data.db')
     c = db.cursor()
 
     query = 'DROP TABLE IF EXISTS admins'
@@ -172,7 +181,7 @@ def addAdmins():
     query = 'CREATE TABLE admins (email TEXT);'
     c.execute(query)
 
-    f = open('data/admins.csv')
+    f = open(pname + 'admins.csv')
     reader = csv.reader(f)
     for row in reader:
         email = row[0]
@@ -184,7 +193,8 @@ def addAdmins():
     
 #adds the list of courses from a csv to the database
 def addCourses():
-    db = sqlite3.connect('data/data.db')
+    print 'Adding courses...'
+    db = sqlite3.connect(pname + 'data.db')
     c = db.cursor()
 
     query = 'DROP TABLE IF EXISTS courses'
@@ -193,7 +203,7 @@ def addCourses():
     query = 'CREATE TABLE courses (code TEXT, title TEXT);'
     c.execute(query)
 
-    f = open('data/courses.csv')
+    f = open(pname + 'courses.csv')
     reader = csv.DictReader(f)
     for row in reader:
         course = row['Course']
@@ -204,14 +214,9 @@ def addCourses():
     db.close()
     f.close()
 
-#gotta run these
-addTeachers()
-addAdmins()
-addCourses()
-
 #returns the courses a teacher requested
 def getCourses(email):
-    db = sqlite3.connect('data/data.db')
+    db = sqlite3.connect(pname + 'data.db')
     c = db.cursor()
     
     q = "SELECT course1,course2,course3 FROM responses WHERE email = '%s';" %(email)
@@ -224,7 +229,7 @@ def getCourses(email):
 
 #returns the teacher's preferred teaching day
 def getPds(email):
-    db = sqlite3.connect('data/data.db')
+    db = sqlite3.connect(pname + 'data.db')
     c = db.cursor()
     
     q = "SELECT pds FROM responses WHERE email = '%s';" %(email)
@@ -237,7 +242,7 @@ def getPds(email):
 
 #returns all the rooms a teacher requested
 def getRooms(email):
-    db = sqlite3.connect('data/data.db')
+    db = sqlite3.connect(pname + 'data.db')
     c = db.cursor()
     
     q = "SELECT room1,room2,room3 FROM responses WHERE email = '%s';" %(email)
@@ -250,7 +255,7 @@ def getRooms(email):
 
 #returns a teacher's preferred lunch periods
 def getLunch(email):
-    db = sqlite3.connect('data/data.db')
+    db = sqlite3.connect(pname + 'data.db')
     c = db.cursor()
     
     q = "SELECT lunch1,lunch2,lunch3 FROM responses WHERE email = '%s';" %(email)
@@ -263,7 +268,7 @@ def getLunch(email):
     
 #returns how many years a teacher has been working
 def getYears(email):
-    db = sqlite3.connect('data/data.db')
+    db = sqlite3.connect(pname + 'data.db')
     c = db.cursor()
     
     q = "SELECT years FROM responses WHERE email = '%s';" %(email)
@@ -276,7 +281,7 @@ def getYears(email):
 
 #returns the teacher's email by name
 def getEmail( fname, lname ):
-    db = sqlite3.connect('data/data.db')
+    db = sqlite3.connect(pname + 'data.db')
     c = db.cursor()
     
     q = "SELECT email FROM teachers WHERE first = '%s' AND last = '%s';" %(fname.capitalize(), lname.capitalize())
@@ -289,7 +294,7 @@ def getEmail( fname, lname ):
 
 #returns the teacher's name by email
 def getName( email ):
-    db = sqlite3.connect('data/data.db')
+    db = sqlite3.connect(pname + 'data.db')
     c = db.cursor()
     
     q = "SELECT first,last FROM teachers WHERE email = '%s';" %(email)
@@ -305,7 +310,7 @@ def getName( email ):
 def courseList():
     list = []
     
-    db = sqlite3.connect('data/data.db')
+    db = sqlite3.connect(pname + 'data.db')
     c = db.cursor()
     
     q = "SELECT * FROM courses;"
@@ -338,7 +343,7 @@ def whoChoseWhat( area, number, choice ):
     number = str(number)
     choice = str(choice)
     
-    db = sqlite3.connect('data/data.db')
+    db = sqlite3.connect(pname + 'data.db')
     c = db.cursor()
     
     q = "SELECT email FROM responses WHERE %s%s = '%s';" %(area, number, choice)
@@ -359,7 +364,7 @@ def whoChoseWhatE(area, number, choice):
     number = str(number)
     choice = str(choice)
     
-    db = sqlite3.connect('data/data.db')
+    db = sqlite3.connect(pname + 'data.db')
     c = db.cursor()
     
     q = "SELECT email FROM responses WHERE %s%s = '%s';" %(area, number, choice)
@@ -374,7 +379,7 @@ def whoChoseWhatE(area, number, choice):
 
 #checks if a teacher has already responded
 def hasEntry(email):
-    db = sqlite3.connect('data/data.db')
+    db = sqlite3.connect(pname + 'data.db')
     c = db.cursor()
 
     q = 'SELECT * FROM responses WHERE email = "%s";' %(email)
@@ -385,3 +390,17 @@ def hasEntry(email):
     db.close()
 
     return len(entry) != 0
+
+functions = ['teachers', 'admins', 'courses']
+
+#uses command line input to create tables for teachers, admins, and courses in database
+if __name__ == '__main__':
+    if len(sys.argv) == 2 and sys.argv[1] in functions:
+        if sys.argv[1] == 'teachers':
+            addTeachers()
+        elif sys.argv[1] == 'admins':
+            addAdmins()
+        elif sys.argv[1] == 'courses':
+            addCourses()
+    else:
+        print 'Invalid usage'

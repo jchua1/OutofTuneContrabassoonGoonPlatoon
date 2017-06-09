@@ -11,6 +11,9 @@ app.secret_key = os.urandom(32)
 
 deptData = {}
 
+DIR = os.path.dirname(__file__) or '.'
+DIR += '/'
+    
 @app.route("/")
 def index():
     if "admin" in session:
@@ -40,7 +43,7 @@ def logout():
 
 @app.route("/login")
 def oauth_testing():
-    flow = flow_from_clientsecrets('client_secrets.json',
+    flow = flow_from_clientsecrets(DIR + 'client_secrets.json',
                                    scope = 'https://www.googleapis.com/auth/userinfo.email',
                                    redirect_uri = url_for('oauth_testing', _external = True))
     if 'code' not in request.args:
@@ -65,16 +68,16 @@ def sample_info_route():
         http_auth = credentials.authorize(Http())
         response, content = http_auth.request('https://www.googleapis.com/oauth2/v1/userinfo?alt=json')
         c = json.loads(content)
-        #############commented out for testing purposes
-        #if c['email'][c['email'].find('@')+1:] == 'stuy.edu':
-        if isAdmin(c['email']):
-            session['admin'] = c['email']
-        else:
-            if tExists(c['email']):
+        if c['email'][c['email'].find('@')+1:] == 'stuy.edu':
+            if isAdmin(c['email']):
+                session['admin'] = c['email']
+            elif tExists(c['email']):
                 session['teacher'] = c['email']
-        return redirect('/')
-        #else:
-            #return render_template("home.html", msg = "Only stuy.edu emails are accepted.")
+            else:
+                return render_template('home.html', msg = 'Your stuy.edu email is not registered in the database.')
+            return redirect('/')
+        else:
+            return render_template("home.html", msg = "Only stuy.edu emails are accepted.")
 
 @app.route("/form")
 def form():
@@ -142,12 +145,14 @@ def closeForm():
         return render_template("home.html", msg = "You have closed the form for the semester. Teachers will not be able to fill out the form anymore.", isLoggedIn = True, isAdmin = True, user = getName(session['admin']), processed = True)
     return redirect("/")
 
+#used for a post ajax call from script.js to populate drop down menu with courses from the selected department
 @app.route('/departments', methods = ['POST'])
 def deptList():
     dept = request.form['department']
     ret = deptSort(dept)
     return json.dumps(ret)
 
+#used for a get ajax call from results.js to create a d3 bar graph
 @app.route('/responses')
 def responses():
     courseNum = {}
@@ -159,6 +164,7 @@ def responses():
         courseNum[course] = len(c1) + len(c2) + len(c3)
     return json.dumps(courseNum)
 
+#used for a post ajax call from results.js to populate list with teachers who requested the selected course
 @app.route('/teachers', methods = ['POST'])
 def teachers():
     course = request.form['course']
@@ -168,7 +174,7 @@ def teachers():
     c3 = whoChoseWhatE('course', 3, course)
     for c in c1:
         name = getName(c)
-        choice = '(1st Choice)'
+        choice = '1st Choice'
         years = getYears(c) + ' years'
         lunch = choicesToString(getLunch(c))
         rooms = choicesToString(getRooms(c))
@@ -176,7 +182,7 @@ def teachers():
         teachers.append(e)
     for c in c2:
         name = getName(c)
-        choice = '(2nd Choice)'
+        choice = '2nd Choice'
         years = getYears(c) + ' years'
         lunch = choicesToString(getLunch(c))
         rooms = choicesToString(getRooms(c))
@@ -184,7 +190,7 @@ def teachers():
         teachers.append(e)
     for c in c3:
         name = getName(c)
-        choice = '(3rd Choice)'
+        choice = '3rd Choice'
         years = getYears(c) + ' years'
         lunch = choicesToString(getLunch(c))
         rooms = choicesToString(getRooms(c))
@@ -192,6 +198,7 @@ def teachers():
         teachers.append(e)
     return json.dumps(teachers)
 
+#used for a post ajax call from results.js to get the selected department from the radio button list and edit global variable deptData to contain responses from all teachers who requested a course in that department
 @app.route('/deptResponses', methods=['POST'])
 def deptResponses():
     dept = request.form['dept']
@@ -235,6 +242,7 @@ def deptResponses():
                 
     return ''
 
+#used as a route for a form in results.html that allows the user to download the csv with responses from teachers who requested a course in the selected department
 @app.route('/csv')
 def generateCSV():
     def generate():
@@ -264,6 +272,7 @@ def generateCSV():
         mimetype='text/csv', headers=headers
     )
 
+#used to format tuples
 def choicesToString(choices):
     ret = '('
     for i in range(3):
@@ -275,5 +284,5 @@ def choicesToString(choices):
     return ret
                 
 if __name__ == '__main__':
-    app.debug = True
+    #app.debug = True
     app.run()

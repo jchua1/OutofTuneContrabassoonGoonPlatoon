@@ -141,4 +141,3 @@ Continued to work on final bootstrapping, jinja, and more results display
 
 jordanC -- 2017-06-09 02:45
 Final bootstrap and jinja touches for closed and open forms
-
