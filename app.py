@@ -101,14 +101,14 @@ def form():
 @app.route("/results")
 def results():
     if 'admin' in session:
+        
         acourses = deptSort('Art')
         earlySched = whoChoseWhat('pds', '', '1-9')
         lateSched = whoChoseWhat('pds', '', '2-10')
 
-        if 'admin' in session:
-            return render_template('results.html', early = earlySched, late = lateSched, courses = acourses, isLoggedIn = True, isAdmin = True)
-        else:
-            return render_template('results.html', early = earlySched, late = lateSched, courses = acourses, isLoggedIn = True, isAdmin = False)
+        if isProcessed (session['admin']):
+            return render_template('results.html', early = earlySched, late = lateSched, courses = acourses, isLoggedIn = True, isAdmin= True, processed = True)
+        return render_template('results.html', early = earlySched, late = lateSched, courses = acourses, isLoggedIn = True, isAdmin = True)
     else:
         return redirect("/")
         
