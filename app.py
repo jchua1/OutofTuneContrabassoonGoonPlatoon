@@ -9,6 +9,8 @@ import json, os, csv, cStringIO
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
 
+deptData = {}
+
 @app.route("/")
 def index():
     if "admin" in session:
@@ -176,71 +178,75 @@ def teachers():
         teachers.append(e)
     return json.dumps(teachers)
 
+@app.route('/deptResponses', methods=['POST'])
+def deptResponses():
+    dept = request.form['dept']
+    courses = deptSort(dept)
+    deptData.clear()
+
+    deptData['department'] = dept
+        
+    for c in courses:
+        c1 = whoChoseWhatE('course', 1, c)
+        c2 = whoChoseWhatE('course', 2, c)
+        c3 = whoChoseWhatE('course', 3, c)
+        
+        for e in c1:
+            if e not in deptData:
+                name = getName(e)
+                years = getYears(e)
+                cpref = getCourses(e)
+                pds = getPds(e)
+                lpref = getLunch(e)
+                rpref = getRooms(e)
+                deptData[e] = [name, years, cpref[0], cpref[1], cpref[2], pds, lpref[0], lpref[1], lpref[2], rpref[0], rpref[1], rpref[2]]
+        for e in c2:
+            if e not in deptData:
+                name = getName(e)
+                years = getYears(e)
+                cpref = getCourses(e)
+                pds = getPds(e)
+                lpref = getLunch(e)
+                rpref = getRooms(e)
+                deptData[e] = [name, years, cpref[0], cpref[1], cpref[2], pds, lpref[0], lpref[1], lpref[2], rpref[0], rpref[1], rpref[2]]
+        for e in c3:
+            if e not in deptData:
+                name = getName(e)
+                years = getYears(e)
+                cpref = getCourses(e)
+                pds = getPds(e)
+                lpref = getLunch(e)
+                rpref = getRooms(e)
+                deptData[e] = [name, years, cpref[0], cpref[1], cpref[2], pds, lpref[0], lpref[1], lpref[2], rpref[0], rpref[1], rpref[2]]
+                
+    return ''
+
 @app.route('/csv')
 def generateCSV():
-    dept = 'Art'
-    #dept = request.form['dept']
-    def generate(dept):
-        courses = deptSort(dept)
-        teachers = {}
-        
-        for c in courses:
-            c1 = whoChoseWhatE('course', 1, c)
-            c2 = whoChoseWhatE('course', 2, c)
-            c3 = whoChoseWhatE('course', 3, c)
-
-            for e in c1:
-                if e not in teachers:
-                    name = getName(e)
-                    years = getYears(e)
-                    cpref = getCourses(e)
-                    pds = getPds(e)
-                    lpref = getLunch(e)
-                    rpref = getRooms(e)
-                    teachers[e] = [name, years, cpref[0], cpref[1], cpref[2], pds, lpref[0], lpref[1], lpref[2], rpref[0], rpref[1], rpref[2]]
-            for e in c2:
-                if e not in teachers:
-                    name = getName(e)
-                    years = getYears(e)
-                    cpref = getCourses(e)
-                    pds = getPds(e)
-                    lpref = getLunch(e)
-                    rpref = getRooms(e)
-                    teachers[e] = [name, years, cpref[0], cpref[1], cpref[2], pds, lpref[0], lpref[1], lpref[2], rpref[0], rpref[1], rpref[2]]
-            for e in c3:
-                if e not in teachers:
-                    name = getName(e)
-                    years = getYears(e)
-                    cpref = getCourses(e)
-                    pds = getPds(e)
-                    lpref = getLunch(e)
-                    rpref = getRooms(e)
-                    teachers[e] = [name, years, cpref[0], cpref[1], cpref[2], pds, lpref[0], lpref[1], lpref[2], rpref[0], rpref[1], rpref[2]]
-    
-            data = cStringIO.StringIO()
-            w = csv.writer(data)
-            head = ['Email', 'Name', 'Years Taught', 'Course Pref 1', 'Course Pref 2', 'Course Pref 3', 'Schedule Preference', 'Lunch Pref 1', 'Lunch Pref 2', 'Lunch Pref 3', 'Room Pref 1', 'Room Pref 2', 'Room Pref 3']
-            w.writerow(head)
-            yield data.getvalue()
-            data.seek(0)
-            data.truncate(0)
-
-            print teachers
+    def generate():
+        data = cStringIO.StringIO()
+        w = csv.writer(data)
+        head = ['Email', 'Name', 'Years Taught', 'Course Pref 1', 'Course Pref 2', 'Course Pref 3', 'Schedule Preference', 'Lunch Pref 1', 'Lunch Pref 2', 'Lunch Pref 3', 'Room Pref 1', 'Room Pref 2', 'Room Pref 3']
+        w.writerow(head)
+        yield data.getvalue()
+        data.seek(0)
+        data.truncate(0)
             
-            for t in teachers:
-                responses = teachers[t]
+        for t in deptData:
+            if t != 'department':
+                responses = deptData[t]
                 row = [t, responses[0], responses[1], responses[2], responses[3], responses[4], responses[5], responses[6], responses[7], responses[8], responses[9], responses[10], responses[11]]
                 w.writerow(row)
                 yield data.getvalue()
                 data.seek(0)
                 data.truncate(0)
     
-    f = dept.lower() + 'responses.csv'
+    f = deptData['department'].lower().replace(" ", "_") + '_responses.csv'
     headers = Headers()
     headers.set('Content-Disposition', 'attachment', filename = f)
 
     return Response(
-        stream_with_context(generate(dept)),
+        stream_with_context(generate()),
         mimetype='text/csv', headers=headers
     )
 
@@ -253,7 +259,7 @@ def choicesToString(choices):
             ret += choices[i] + ', '
     ret += ')'
     return ret
-
+                
 if __name__ == '__main__':
     app.debug = True
     app.run()

@@ -78,7 +78,7 @@ def process( email ):
     db.close()
     
     return True
-    
+
 #this method alters all of the teacher (corresponding to their email)'s form responses
 #uses hasEntry to see if it needs to be inserted or updated
 def editResponse( email, responses ):
