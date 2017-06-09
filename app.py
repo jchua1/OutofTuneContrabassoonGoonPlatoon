@@ -128,6 +128,21 @@ def submit():
         return render_template("home.html", msg = "Your scheduling preferences have been recorded. You may log out or view all teacher requests.", isLoggedIn = True, isAdmin = True, user = getName(session['admin']), submitted = True)
     return redirect("/")
 
+@app.route('/open')
+def openForm():
+    if 'admin' in session:
+        addTeachers()
+        clearResponses()
+        return render_template("home.html", msg = "You have opened the form for the semester. Teachers will now be able to access the form and fill out their scheduling preferences.", isLoggedIn = True, isAdmin = True, user = getName(session['admin']))
+    return redirect("/")
+
+@app.route('/close')
+def closeForm():
+    if 'admin' in session:
+        processAll()
+        return render_template("home.html", msg = "You have closed the form for the semester. Teachers will not be able to fill out the form anymore.", isLoggedIn = True, isAdmin = True, user = getName(session['admin']), processed = True)
+    return redirect("/")
+
 @app.route('/departments', methods = ['POST'])
 def deptList():
     dept = request.form['department']

@@ -6,6 +6,7 @@ isAdmin(email)                    - check if user is an admin
 tExists(email)                    - check if teacher is in database
 isProcessed(email)                - check if a teacher has already had their schedule created
 process(email)                    - marks a teacher's responses as being responded to
+processAll()                      - sets all teachers' responses to responded to (closing the form)
 getEmail(fname,lname)             - get a teacher's email based on their name
 getName(email)                    - get a teacher's name based on their email
 hasEntry(email)                   - check if user has already responded to the form
@@ -79,6 +80,18 @@ def process( email ):
     
     return True
 
+#processes all teachers (closes the form)
+def processAll():
+    db = sqlite3.connect('data/data.db')
+    c = db.cursor()
+    
+    q = "UPDATE teachers SET processed = 'True';"
+    c.execute(q)
+    info = c.fetchall()
+
+    db.commit()
+    db.close()
+
 #this method alters all of the teacher (corresponding to their email)'s form responses
 #uses hasEntry to see if it needs to be inserted or updated
 def editResponse( email, responses ):
@@ -106,6 +119,20 @@ def editResponse( email, responses ):
     else:
         query = 'INSERT INTO responses VALUES("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s");' % (email, course1, course2, course3, pds, room1, room2, room3, lunch1, lunch2, lunch3, years)
     c.execute(query)
+    db.commit()
+    db.close()
+
+#clears the response database
+def clearResponses():
+    db = sqlite3.connect('data/data.db')
+    c = db.cursor()
+
+    query = 'DROP TABLE IF EXISTS responses'#refreshing the table
+    c.execute(query)
+
+    query = 'CREATE TABLE responses (email TEXT, course1 TEXT, course2 TEXT, course3 TEXT, pds TEXT, room1 TEXT, room2 TEXT, room3 TEXT, lunch1 TEXT, lunch2 TEXT, lunch3 TEXT, years TEXT);'
+    c.execute(query)
+
     db.commit()
     db.close()
 

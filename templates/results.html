@@ -122,7 +122,16 @@
       <form action="/csv" method="GET">
 	Click this button to download a spreadsheet of teacher responses for the selected department: <input type="submit" class="btn btn-primary" id="download" value="Download">
       </form>
-      
+
+      <br>
+      <form action="/close" method="GET">
+	Click this button to close the form. <b>Teachers will not be able to submit preferences until you choose to open the form again.</b> <input type="submit" class="btn btn-primary" value="Close">
+      </form>
+
+      <br>
+      <form action="/open" method="GET">
+	Click this button to open the form. <b>This will delete all past teacher responses and allow them to submit new preferences for the next semester.</b> <input type="submit" class="btn btn-primary" value="Open">
+      </form>
     </div>
       
   </body>

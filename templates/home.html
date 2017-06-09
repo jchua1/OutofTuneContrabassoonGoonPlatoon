@@ -30,19 +30,15 @@
 	<ul class="nav navbar-nav">
 	  <li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
 	  {% if isLoggedIn %}
-	  {% if processed %}
-	</ul>
-	<ul class="nav navbar-nav navbar-right">
-	  <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+	  {% if isAdmin %}
+	  <li><a href="/form"><span class="glyphicon glyphicon-list-alt"></span> Form</a></li>
+	  <li><a href="/results"><span class="glyphicon glyphicon-stats"></span> Results</a></li>
 	  {% else %}
 	  <li><a href="/form"><span class="glyphicon glyphicon-list-alt"></span> Form</a></li>
-	  {% if isAdmin %}
-	  <li><a href="/results"><span class="glyphicon glyphicon-stats"></span> Results</a></li>
 	  {% endif %}
 	</ul>
 	<ul class="nav navbar-nav navbar-right">
 	  <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
-	  {% endif %}
 	  {% endif %}
 	</ul>
       </div>
@@ -69,11 +65,6 @@
       </p>
 
       <!-- ADMIN MSG -->
-      {% if processed %}
-      <p>
-	<b>Your AP has processed your requests and created your schedule. Thank you.</b>
-      </p>
-      {% else %}
       {% if isAdmin %}
       {% if submitted %}
       <p>
@@ -82,6 +73,15 @@
       </p>
       {% else %}
 
+      {% if processed %}
+      <div class="row">
+	<div class="col-sm-6">
+	  <p>
+	    <b>The form is currently closed.</b>
+	  </p>
+	</div>
+
+      {% else %}
       <div class="row">
 	<div class="col-sm-6">
 	  <p>
@@ -89,17 +89,26 @@
 	    <a href="/form" class="btn btn-primary" role="button">Form</a>
 	  </p>
 	</div>
-	{% endif %}
+
+      {% endif %}
+      
 	<div class="col-sm-6">
 	  <p>
 	    View the results of teacher form submissions here:<br>
 	    <a href="/results" class="btn btn-primary" role="button">Results</a>
 	  </p>
 	</div>
-      </div>
-      {% else %}
+    </div>
+    {% endif %}
+    {% else %}
 
-      <!-- TEACHER MSG -->
+    <!-- TEACHER MSG -->
+    {% if processed %}
+      <p>
+	<b>Your AP has processed your requests and created your schedule. Thank you.</b>
+      </p>
+      {% else %}
+      
       {% if submitted %}
       <p>
 	<b>You have already submitted a response.</b> Edit your existing scheduling requests here:
