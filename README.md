@@ -14,14 +14,14 @@ A Flask driven app that will allow faculty to submit their scheduling preference
 2) Add teachers.csv, admins.csv, and courses.csv to data directory.
 
 - Format of teachers.csv:  
-  Header: 'Email address','First name','Last name'  
+  Header: 'Email address','First name','Last name'<br />
   <STUY.EDU EMAIL>,<FIRST NAME>,<LAST NAME>
 - Format of admins.csv:
-  No Header  
-  <STUY.EDU EMAIL>  
-- Format of courses.csv:  
-  Header: 'Course', 'Course Title'  
-  <COURSE CODE>, <COURSE NAME>  
+  No Header<br />  
+  <STUY.EDU EMAIL><br />  
+- Format of courses.csv:<br />  
+  Header: 'Course', 'Course Title'<br />  
+  <COURSE CODE>, <COURSE NAME><br />
 - Make sure the format and names of each file are correct or else the information will not be added to the database. This should be only  done when the FINAL VERSION of each csv file is in the data directory.
 
 3) Populate the database. This should only be done when the FINAL VERSION of each CSV file for the upcoming semester is in the data directory.
