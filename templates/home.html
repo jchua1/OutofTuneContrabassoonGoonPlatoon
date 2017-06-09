@@ -67,10 +67,21 @@
       <!-- ADMIN MSG -->
       {% if isAdmin %}
       {% if submitted %}
-      <p>
-	<b>You have already submitted a response.</b> To edit your existing scheduling requests, click this button:
-	<a href="/form" class="btn btn-primary" role="button">Form</a>
-      </p>
+      <div class="row">
+	<div class="col-sm-6">
+	  <p>
+	    <b>You have already submitted a response.</b> To edit your existing scheduling requests, click this button:
+	    <a href="/form" class="btn btn-primary" role="button">Form</a>
+	  </p>
+	</div>
+	
+	<div class="col-sm-6">
+	  <p>
+	    View the results of teacher form submissions here:<br>
+	    <a href="/results" class="btn btn-primary" role="button">Results</a>
+	  </p>
+	</div>
+      </div>
       {% else %}
 
       {% if processed %}
