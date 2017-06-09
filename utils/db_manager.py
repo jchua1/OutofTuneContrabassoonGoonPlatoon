@@ -92,7 +92,7 @@ def addTeachers():
     query = 'DROP TABLE IF EXISTS teachers'#refreshing the table
     c.execute(query)
 
-    query = 'CREATE TABLE teachers (email TEXT, first TEXT, last TEXT);'
+    query = 'CREATE TABLE teachers (email TEXT, first TEXT, last TEXT, processed TEXT);'
     c.execute(query)
 
     f = open('data/teachers.csv')
@@ -101,7 +101,7 @@ def addTeachers():
         email = row['Email address']
         first = row['First name'].capitalize()#because names are exactly as input
         last = row['Last name'].capitalize()
-        query = 'INSERT INTO teachers VALUES("%s", "%s", "%s");' % (email, first, last)
+        query = 'INSERT INTO teachers VALUES("%s", "%s", "%s", "False");' % (email, first, last)
         c.execute(query)
     db.commit()#gotta save everything, ya feel?
     db.close()
