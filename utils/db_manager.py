@@ -64,6 +64,18 @@ def isProcessed( email ):
     db.close()
     
     return c[0][0] == "True"
+
+def process( email ):
+    db = sqlite3.connect('data/data.db')
+    c = db.cursor()
+    
+    q = "UPDATE teachers SET processed = '%s' WHERE email = '%s';" % ( "True", email )
+    c.execute(q)
+    info = c.fetchall()
+    
+    db.close()
+    
+    return True
     
 #this method alters all of the teacher (corresponding to their email)'s form responses
 #uses hasEntry to see if it needs to be inserted or updated
