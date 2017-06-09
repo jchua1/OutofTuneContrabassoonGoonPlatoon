@@ -53,6 +53,18 @@ def tExists( email ):
     else:
         return False #if false it should ask a teacher for their name + department, then add them to the db
 
+def isProcessed( email ):
+    db = sqlite3.connect('data/data.db')
+    c = db.cursor()
+    
+    q = "SELECT processed FROM teachers WHERE email = '%s';" % ( email )
+    c.execute(q)
+    info = c.fetchall()
+    
+    db.close()
+    
+    return c[0][0] == "True"
+    
 #this method alters all of the teacher (corresponding to their email)'s form responses
 #uses hasEntry to see if it needs to be inserted or updated
 def editResponse( email, responses ):
