@@ -100,8 +100,7 @@ def form():
 
 @app.route("/results")
 def results():
-    # REMOVE THE "or 'teacher' in session" BEFORE THE PROJECT IS DONE
-    if 'admin' in session or 'teacher' in session:
+    if 'admin' in session:
         acourses = deptSort('Art')
         earlySched = whoChoseWhat('pds', '', '1-9')
         lateSched = whoChoseWhat('pds', '', '2-10')
