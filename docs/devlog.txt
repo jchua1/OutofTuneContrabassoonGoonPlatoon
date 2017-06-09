@@ -141,3 +141,8 @@ Continued to work on final bootstrapping, jinja, and more results display
 
 jordanC -- 2017-06-09 02:45
 Final bootstrap and jinja touches for closed and open forms
+
+jasonC -- 2017-06-09 04:26
+Wrote comments for all functions
+Created method to add teachers, admins, and courses from terminal
+Reformatted directory for deployment
