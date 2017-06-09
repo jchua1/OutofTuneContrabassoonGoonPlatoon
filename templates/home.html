@@ -30,6 +30,11 @@
 	<ul class="nav navbar-nav">
 	  <li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
 	  {% if isLoggedIn %}
+	  {% if processed %}
+	  </ul>
+	<ul class="nav navbar-nav navbar-right">
+	  <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+	  {% else %}
 	  <li><a href="/form"><span class="glyphicon glyphicon-list-alt"></span> Form</a></li>
 	  {% if isAdmin %}
 	  <li><a href="/results"><span class="glyphicon glyphicon-stats"></span> Results</a></li>
@@ -37,6 +42,7 @@
 	</ul>
 	<ul class="nav navbar-nav navbar-right">
 	  <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+	  {% endif %}
 	  {% endif %}
 	</ul>
       </div>
@@ -63,6 +69,11 @@
       </p>
 
       <!-- ADMIN MSG -->
+      {% if processed %}
+      <p>
+	<b>Your AP has processed your requests and created your schedule. Thank you.</b>
+      </p>
+      {% else %}
       {% if isAdmin %}
       {% if submitted %}
       <p>
@@ -85,6 +96,7 @@
 	    <a href="/results" class="btn btn-primary" role="button">Results</a>
 	  </p>
 	</div>
+      </div>
 	{% else %}
 
       <!-- TEACHER MSG -->
@@ -100,7 +112,7 @@
       </p>
       {% endif %}
       {% endif %}
-    </div>
+      {% endif %}
     
     {% else %}
 

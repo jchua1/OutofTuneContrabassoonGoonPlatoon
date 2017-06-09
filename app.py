@@ -12,11 +12,15 @@ app.secret_key = os.urandom(32)
 @app.route("/")
 def index():
     if "admin" in session:
+        if isProcessed(session['admin']):
+            return render_template("home.html", isLoggedIn = True, isAdmin = True, user = getName(session['admin']), processed = True)
         if hasEntry(session['admin']):
             return render_template("home.html", isLoggedIn = True, isAdmin = True, user = getName(session['admin']), submitted = True)
         return render_template("home.html", isLoggedIn = True, isAdmin = True, user = getName(session['admin']))
     
     if "teacher" in session:
+        if isProcessed(session['teacher']):
+            return render_template("home.html", isLoggedIn = True, isAdmin = False, user = getName(session['teacher']), processed = True)
         if hasEntry(session['teacher']):
             return render_template("home.html", isLoggedIn = True, isAdmin = False, user = getName(session['teacher']), submitted = True)
         return render_template("home.html", isLoggedIn = True, isAdmin = False, user = getName(session['teacher']), submitted = False)
@@ -73,6 +77,8 @@ def sample_info_route():
 @app.route("/form")
 def form():
     if 'admin' in session:
+        if isProcessed(session['admin']):
+            return redirect("/")
         courseStuff = courseList()
         if hasEntry(session['admin']):
             user = session['admin']
@@ -80,6 +86,8 @@ def form():
         return render_template("form.html", courses = courseStuff, isAdmin = True, submitted = False)
     
     if 'teacher' in session:
+        if isProcessed(session['teacher']):
+            return redirect("/")
         courseStuff = courseList()
         if hasEntry(session['teacher']):
             user = session['teacher']

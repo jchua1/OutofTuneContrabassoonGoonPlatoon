@@ -65,7 +65,7 @@ def isProcessed( email ):
     
     db.close()
     
-    return c[0][0] == "True"
+    return info[0][0] == "True"
 
 def process( email ):
     db = sqlite3.connect('data/data.db')
