@@ -139,6 +139,9 @@ Wrote javascript files to attempt to create the bar graph and to view which teac
 jordanC -- 2017-06-06 06:47
 Continued to work on final bootstrapping, jinja, and more results display
 
+lawrenceL -- 2017-06-09 00:08
+Admins can open/close the form in the results page, opening the form clears the response database and allows all teachers to fill out the form. Closing the form prevents any faculty from accessing the form.
+
 jordanC -- 2017-06-09 02:45
 Final bootstrap and jinja touches for closed and open forms
 
