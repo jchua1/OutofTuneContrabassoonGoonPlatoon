@@ -35,4 +35,6 @@ A Flask driven app that will allow faculty to submit their scheduling preference
 
 - Adding courses: `$ scheduling/utils/db_manager.py courses`
 
-4) That's it! Run the application using: `$ scheduling/__init__.py`
+4) Insert client_secrets.json with the client_id and client_secret to the scheduling directory.
+
+5) That's it! Run the application using: `$ scheduling/__init__.py`
