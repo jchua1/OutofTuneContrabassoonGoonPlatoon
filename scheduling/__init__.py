@@ -41,7 +41,7 @@ def logout():
         session.pop("admin")
     return render_template("home.html", msg = "You have successfully logged out.")
 
-@app.route("/login")
+@app.route("/login", methods = ['GET', 'POST'])
 def oauth_testing():
     flow = flow_from_clientsecrets(DIR + 'client_secrets.json',
                                    scope = 'https://www.googleapis.com/auth/userinfo.email',
